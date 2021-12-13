@@ -3,8 +3,11 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 
 const db = require('../db/models');
-
 const { csrfProtection, asyncHandler } = require('./utils');
+const { check, validationResult } = require('express-validator');
+const { loginUser } = require('../auth');
+
+
 
 const userValidators = [
   check('username')
@@ -57,7 +60,7 @@ const userValidators = [
 
 
 /* GET users listing. */
-router.get('/signup', csrfProtection, (req, res, next) => {
+router.get('/signup', csrfProtection, (req, res) => {
   const user = db.User.build();
   res.render('user-signup', {
     title: 'User Sign Up',
