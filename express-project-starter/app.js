@@ -8,6 +8,7 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const storiesRouter = require('./routes/stories');
 const { sessionSecret } = require('./config');
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.user('/stories', storiesRouter);
 
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });
