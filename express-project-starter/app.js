@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const { restoreUser }= require('./auth')
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -8,13 +9,14 @@ const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const storiesRouter = require('./routes/stories');
 const { sessionSecret } = require('./config');
 const { restoreUser } = require('./auth');
 const app = express();
 
+
 // view engine setup
 app.set('view engine', 'pug');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,10 +28,12 @@ app.use(session({
   saveUninitialized: false,
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(restoreUser)
 
 app.use(restoreUser);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/stories', storiesRouter);
 
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });
