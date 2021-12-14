@@ -37,7 +37,6 @@ const storyNotFoundError = (storyId) => {
 //~~~~CREATE NEW STORY~~~~//
 router.get('/create', requireAuth, csrfProtection, asyncHandler(async (req, res, next) => {
     const story = await Story.build();
-    console.log(story);
     res.render('story-create', {
         csrfToken: req.csrfToken(),
         title: "Create a Story",
@@ -63,14 +62,16 @@ router.post('/create', requireAuth, csrfProtection, storyValidations, asyncHandl
     const story = Story.build({
         userId: res.locals.user.id, title, content
     })
+
+    console.log('this is a test', story)
+
     const validatorErrors = validationResult(req);
     if (validatorErrors.isEmpty()) {
         await story.save();
-        res.redirect('/stories/${story.id}');
+        res.redirect(`/stories/${story.id}`);
     } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('story-create', {
-            title: 'Create a Story',
             story,
             errors,
             csrfToken: req.csrfToken(),
