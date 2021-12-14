@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Stories', [{
       id: 1,
-      userId: 1,
+      userId: 9999,
       title: `Annoyed a roadside guardian`,
       category: 'dreams',
       content: `I moved about 4hrs away from my home town for college and stay here to date. Every time i want to visit my parents, i will leave on friday night after work, make sure i reach them at late night. Atleast i have the full Saturday with them before i drive back to city on Sunday evening. Unfortunately it gets pretty tiring driving after week long work.
@@ -29,7 +29,7 @@ module.exports = {
     },
   {
     id: 2,
-    userId: 2,
+    userId: 10000,
     title: `I stayed in a haunted house in Warwick and I swear it was evil.`,
     category: `haunted houses`,
     content: `When I was pregnant, me and my kids father stayed at his cousins house for about a month before we moved into our apartment. It’s an old farm house in a newly developed area of Warwick, Rhode Island. There are farms and woods in one direction and a small town on the other.
@@ -52,7 +52,7 @@ module.exports = {
   },
 {
   id: 3,
-  userId: 2,
+  userId: 10000,
   title: `Monster in My Room`,
   category: `haunted houses`,
   content: `I have two younger sisters. I wanted to share a story we share that is still brought up in my family today and regarded with fear.
