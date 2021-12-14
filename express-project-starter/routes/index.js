@@ -1,12 +1,17 @@
 const express = require('express');
 const router = express.Router();
-
+const db = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
 
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'a/A Express Skeleton Home' });
-});
+router.get('/', asyncHandler(async(req, res, next) => {
+  const stories = await db.Story.findAll({
+    order: [
+      ['createdAt', 'DESC']
+    ]
+  })
+  res.render('index', { title: 'Welcome to Eerium', stories });
+}));
 
 module.exports = router;
