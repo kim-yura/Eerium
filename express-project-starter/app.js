@@ -1,5 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
+const { restoreUser }= require('./auth')
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -12,9 +13,9 @@ const storiesRouter = require('./routes/stories');
 const { sessionSecret } = require('./config');
 const app = express();
 
+
 // view engine setup
 app.set('view engine', 'pug');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,10 +27,11 @@ app.use(session({
   saveUninitialized: false,
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(restoreUser)
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.user('/stories', storiesRouter);
+app.use('/stories', storiesRouter);
 
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });

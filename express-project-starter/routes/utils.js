@@ -23,7 +23,7 @@ const handleValidationErrors = (req, res, next) => {
     next();
 };
 module.exports = {
-    csrfProtection,
-    handleValidationErrors,
     asyncHandler,
+    csrfProtection,
+    handleValidationErrors
 };

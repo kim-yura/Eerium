@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const { check, validationResult } = require('express-validator');
 
 const db = require('../db/models');
 const { Story } = db;
 const { asyncHandler, csrfProtection } = require('./utils');
-const { check, validationResult } = require('express-validator');
 const { loginUser, logoutUser, requireAuth, restoreUser } = require('../auth');
 
-// router.use(express.json())
+
 const storyValidations = [
     check("title")
         .isLength({ max: 255 })
@@ -20,8 +20,9 @@ const storyValidations = [
 ];
 
 
-router.get('/create', requireAuth, asyncHandler(async (req, res, next) => {
+router.get('/create', requireAuth, csrfProtection, asyncHandler(async (req, res, next) => {
     const story = await Story.build();
+    console.log(story);
     res.render('story-create', {
         csrfToken: req.csrfToken(),
         title: "Create a Story",
