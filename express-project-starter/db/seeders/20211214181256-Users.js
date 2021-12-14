@@ -9,7 +9,7 @@ module.exports = {
       Example:
       */
     return queryInterface.bulkInsert('Users', [{
-      id: 1,
+      id: 9999,
       username: 'DemoDave',
       hashedPassword: '$2a$12$brsi1a4OJ0yNWU9WIirNvOzGldr0mTsr04kf772H9hUSW10VwYPr6',
       // pw: Password@123
@@ -18,7 +18,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
-      id: 2,
+      id: 10000,
       username: 'MothmanMark',
       hashedPassword: '$2a$12$brsi1a4OJ0yNWU9WIirNvOzGldr0mTsr04kf772H9hUSW10VwYPr6',
       email: 'moth@moth.com',
