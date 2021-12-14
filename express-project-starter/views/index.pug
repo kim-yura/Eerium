@@ -9,3 +9,9 @@ append head
 block content
   h1= title
   p Welcome to your Project Skeleton
+  div(class='feed-stories')
+    each story in stories
+      p= story.userId
+      p= story.title
+      p= story.createdAt
+      p= story.content
