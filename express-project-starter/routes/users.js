@@ -167,7 +167,7 @@ router.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
-router.get('/demo', asyncHandler(async(req, res) => {
+router.get('/demo', asyncHandler(async (req, res) => {
   console.log("SUCCESSFUL LOGIN");
   const email = 'dave@dave.com';
   const password = 'Password@123';
@@ -196,8 +196,18 @@ router.get('/demo', asyncHandler(async(req, res) => {
     errors.push('Login failed for the provided email address and password');
   } else {
     errors = validatorErrors.array().map((error) => error.msg);
+  };
+}));
 
-  }
+
+//  User Page shows user's activity
+router.get('/:userId', asyncHandler(async (req, res, next) => {
+  const userId = (req.params.userId);
+  const user = await db.User.findByPk(userId, {
+    include: [db.Story, db.Comment]
+  });
+  const userStories = user.Stories;
+  res.render('user-profile', { title: `${user.username}'s Profile Page`, user, userStories });
 }))
 
 module.exports = router;
