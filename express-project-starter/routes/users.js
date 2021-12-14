@@ -167,4 +167,37 @@ router.post('/logout', (req, res) => {
   res.redirect('/');
 });
 
+router.get('/demo', asyncHandler(async(req, res) => {
+  console.log("SUCCESSFUL LOGIN");
+  const email = 'dave@dave.com';
+  const password = 'Password@123';
+  req.body = {
+    email,
+    password
+  };
+
+  let errors = [];
+  const validatorErrors = validationResult(req);
+
+  if (validatorErrors.isEmpty()) {
+    const user = await db.User.findOne({ where: { email } });
+
+    if (user !== null) {
+      // console.log(user);
+      const passwordMatch = await bcrypt.compare(password, user.hashedPassword.toString());
+
+      if (passwordMatch) {
+        loginUser(req, res, user);
+
+        //  res.redirect('/');
+        return res.redirect('/');
+      }
+    }
+    errors.push('Login failed for the provided email address and password');
+  } else {
+    errors = validatorErrors.array().map((error) => error.msg);
+
+  }
+}))
+
 module.exports = router;
