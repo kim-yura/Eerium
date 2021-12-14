@@ -1,8 +1,18 @@
 doctype html
 html
   head
-      block head
-        title="Express Starter App"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+    block head
+      title="Express Starter App"
+      link(rel='stylesheet' href='/stylesheets/reset.css')
   body
+    nav(class='')
+      ul(class='')
+      if locals.authenticated
+          span(class='') Welcome #{user.username}!
+          form(class='' action='/users/logout' method='post')
+            button(class='' type='submit') Log Out
+      else
+        span(class='')
+          a(class='' href='/users/login') Login
+          a(class='' href='/users/signup') Sign Up
     block content
