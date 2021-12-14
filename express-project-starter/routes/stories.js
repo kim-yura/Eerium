@@ -1,3 +1,5 @@
+//-------------------------------------------------------------------IMPORTS------------------------------------------------------------------//
+
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
@@ -7,6 +9,7 @@ const { Story } = db;
 const { asyncHandler, csrfProtection } = require('./utils');
 const { loginUser, logoutUser, requireAuth, restoreUser } = require('../auth');
 
+//-------------------------------------------------------------------VALIDATIONS------------------------------------------------------------------//
 
 const storyValidations = [
     check("title")
@@ -19,7 +22,19 @@ const storyValidations = [
         .withMessage("Content can not be empty."),
 ];
 
+//--------------------------------------------------------------------CUSTOM ERRORS-------------------------------------------------------------------------------//
 
+const storyNotFoundError = (storyId) => {
+    const err = new Error("The requested story could not be found with the given ID.");
+    err.title = 'Story not found.'
+    err.status = 404;
+    // next(err);
+    return err
+}
+
+//-------------------------------------------------------------------FORM ROUTES/ GENERAL ROUTES------------------------------------------------------------------//
+
+//~~~~CREATE NEW STORY~~~~//
 router.get('/create', requireAuth, csrfProtection, asyncHandler(async (req, res, next) => {
     const story = await Story.build();
     console.log(story);
@@ -30,11 +45,23 @@ router.get('/create', requireAuth, csrfProtection, asyncHandler(async (req, res,
     })
 }))
 
+//~~~~GET SPECIFIC STORY~~~~//
+router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res, next) => {
+    const storyId = parseInt(req.params.id, 10);
+    const story = await Story.findByPk(storyId);
+    if (story) {
+        res.json({ story })
+    } else {
+        next(storyNotFoundError(storyId))
+    }
+}))
 
-
+//-------------------------------------------------------------------FORM SUBMISSION ROUTES------------------------------------------------------------------//
+//~~~~SUBMIT STORY~~~~//
 router.post('/create', requireAuth, csrfProtection, storyValidations, asyncHandler(async (req, res, next) => {
     const { title, content } = req.body;
-    const story = Story.build({ userId: res.locals.user.id, title, content
+    const story = Story.build({
+        userId: res.locals.user.id, title, content
     })
     const validatorErrors = validationResult(req);
     if (validatorErrors.isEmpty()) {
@@ -50,5 +77,10 @@ router.post('/create', requireAuth, csrfProtection, storyValidations, asyncHandl
         });
     }
 }));
+
+//-------------------------------------------------------------------EDIT ROUTES------------------------------------------------------------------//
+
+//-------------------------------------------------------------------DELETE ROUTES------------------------------------------------------------------//
+
 
 module.exports = router;
