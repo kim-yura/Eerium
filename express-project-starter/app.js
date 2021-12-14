@@ -1,18 +1,20 @@
 const createError = require('http-errors');
 const express = require('express');
-const { restoreUser }= require('./auth')
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const { sequelize } = require('./db/models');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+const app = express();
+
+const { sequelize } = require('./db/models');
+const { sessionSecret } = require('./config');
+const { restoreUser } = require('./auth');
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
-const { sessionSecret } = require('./config');
-const { restoreUser } = require('./auth');
-const app = express();
 
 
 // view engine setup
