@@ -119,6 +119,16 @@ h1 {
 }
 
 /* -- FEED --------------------------------------------------------------------------------------------------------------------------- */
+=======
+.profile {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-areas: "profile stories space";
+    margin-top: 30px;
+    margin-left: 10%;
+    margin-right: 10.5%;
+}
+
 
 .site-body {
     margin-top: 30px;
@@ -133,9 +143,11 @@ h1 {
     grid-template-areas: 'scrolling sidebar';
 }
 
+
 /* -- FEED STORIES --------------------------------------------------------------------------------------------------------------------------- */
 
-.feed-story {
+.feed-story, .user-stories {
+
     background-color: #3a3b3c;
     border-radius: 10px;
     color: white;
@@ -146,6 +158,7 @@ h1 {
     grid-template-areas: 'story-title' 'story-author' 'story-snippet' 'story-metadata';
     height: 227px;
 }
+
 
 .story-title {
     grid-area: story-title;
@@ -179,6 +192,26 @@ h1 {
 }
 
 /* -- FEED SIDEBAR --------------------------------------------------------------------------------------------------------------------------- */
+
+
+.user-stories-title {
+    background-color: #3a3b3c;
+    border-radius: 10px;
+    color: white;
+    margin-top: 10px;
+    padding: 15px;
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.user-stories-created {
+    background-color: #3a3b3c;
+    border-radius: 10px;
+    color: white;
+    margin-top: 10px;
+    padding: 15px;
+    font-size: 15px;
+}
 
 .sidebar {
     position: -webkit-sticky;
