@@ -19,6 +19,4 @@ router.get('/', asyncHandler(async (req, res, next) => {
   res.render('index', { title: 'Welcome to Eerium', stories });
 }));
 
-console.log("Please delete me.")
-
 module.exports = router;
