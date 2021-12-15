@@ -5,15 +5,22 @@ html
       title="Eerium"
       link(rel='stylesheet' href='/stylesheets/reset.css')
   body
-    nav(class='')
-      ul(class='')
-      if locals.authenticated
-          span(class='') Welcome #{user.username}!
-          form(class='' action='/users/logout' method='post')
-            button(class='' type='submit') Log Out
-      else
-        span(class='')
-          a(class='' href='/users/login') Login
-          a(class='' href='/users/signup') Sign Up
-          a(class='' href='/users/demo') Demo
+    nav(class='top-navbar')
+      div(class='top-navbar-left')
+        a(href='/')
+          img(src='../eerium-logo.png' class='top-navbar-left' style='height: 50px')
+      div(class='top-navbar-right')
+        ul
+        if locals.authenticated
+          li
+            span(class='') Welcome #{user.username}!
+          li
+            a(class='navbar-button' href='/users/logout') Log Out
+        else
+          li
+            div(class='navbar-buttons')
+              a(class='navbar-button' href='/users/login') Login
+              a(class='navbar-button' href='/users/signup') Sign Up
+              a(class='navbar-button' href='/users/demo') Demo
+
     block content
