@@ -7,12 +7,47 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
+  div(class='splash-main')
+    div(class='splash-left')
+      h1(id='splash-text-big') Eerium is a place to write, read, and connect
+      h3(id='splash-text-main') It's easy and free to post your thinking on any topic and connect with millions of readers.
+      a(id='splash-start-writing-button' href='/stories/create') Start Writing
+
   div(class='site-body')
-    h1= title
-    div(class='feed-stories')
-      each story in stories
-        div(class='feed-story')
-          p(class='feed-story')= story.User.username
-          p(class='feed-story')= story.title
-          p(class='feed-story')= story.createdAt
-          p(class='content')= story.content
+    div(class='scrolling-feed')
+
+      div(class='feed-stories')
+        each story in stories
+          div(class='feed-story')
+            p(class='story-title')= story.title
+            p(class='story-author')= story.User.username
+            p(class='story-metadata')= story.createdAt
+            p(class='story-snippet')= story.content
+
+
+      if locals.authenticated
+      else
+        div(class='sidebar')
+          p(id='discover-header') DISCOVER MORE OF WHAT MATTERS TO YOU
+          div(class='discover-tabs')
+            ul(class='discover-row')
+              li
+                a(href='') Category 1
+              li
+                a(href='') Category 2
+              li
+                a(href='') Category 3
+            ul(class='discover-row')
+              li
+                a(href='') Category 4
+              li
+                a(href='') Category 5
+              li
+                a(href='') Category 6
+            ul(class='discover-row')
+              li
+                a(href='') Category 7
+              li
+                a(href='') Category 8
+              li
+                a(href='') Category 9

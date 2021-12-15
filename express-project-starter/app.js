@@ -28,7 +28,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(sessionSecret));
 app.use(session({
   name: 'eerium.sid',
-  secret: sessionSecret,
+  secret: 'spookyscary',
   resave: false,
   saveUninitialized: false,
 }));
