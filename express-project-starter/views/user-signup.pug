@@ -2,16 +2,21 @@ extends layout.pug
 
 include utils.pug
 
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+
 block content
-  +validationErrorSummary(errors)
-  form(action='/users/signup' method='post')
-    input(type='hidden' name='_csrf' value=csrfToken)
-    +field('Username', 'username', user.username)
-    +field('Email', 'email', user.email)
-    +field('Password', 'password', user.password)
-    +field('Confirm Password', 'confirmPassword', '', 'password')
-    div(class='')
-      button(type='submit' class='') Sign Up
-      a(href='/' class='') Cancel
-    div
-      p: a(href='/users/login') Already have an account?
+  div(class='site-body')
+    +validationErrorSummary(errors)
+    form(action='/users/signup' method='post')
+      input(type='hidden' name='_csrf' value=csrfToken)
+      +field('Username', 'username', user.username)
+      +field('Email', 'email', user.email)
+      +field('Password', 'password', user.password)
+      +field('Confirm Password', 'confirmPassword', '', 'password')
+      div(class='')
+        button(type='submit' class='') Sign Up
+        a(href='/' class='') Cancel
+      div
+        p: a(href='/users/login') Already have an account?

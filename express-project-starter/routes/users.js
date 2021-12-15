@@ -161,7 +161,7 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
 //   next();
 // });
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
   // res.json("TEST");
   logoutUser(req, res);
   res.redirect('/');
