@@ -5,7 +5,9 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
 const db = require('../db/models');
+
 const { Story } = db;
+
 const { asyncHandler, csrfProtection, handleValidationErrors } = require('./utils');
 const { loginUser, logoutUser, requireAuth, restoreUser } = require('../auth');
 
@@ -99,8 +101,6 @@ router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async (r
 
     checkPermissions(story, res.locals.user);
 
-    console.log("story edit test", story)
-
     res.render('story-edit', {
         title: 'Edit Story',
         story,
@@ -142,6 +142,7 @@ router.post('/:id(\\d+)/edit', requireAuth, csrfProtection, storyValidations, as
 
 
 //-------------------------------------------------------------------DELETE ROUTES------------------------------------------------------------------//
+
 //modified Tue Night, test done.
 router.get('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
     const storyId = parseInt(req.params.id, 10);
@@ -157,12 +158,16 @@ router.get('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async 
 router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
     const storyId = parseInt(req.params.id, 10);
     const story = await db.Story.findByPk(storyId);
+
     console.log("my name is ", storyId);
+
     checkPermissions(story, res.locals.user);
 
+    const userId = res.locals.user.id
+
     await story.destroy();
-    res.redirect('/');
-    // res.redirect('/users/:userId');
+    // res.redirect('/');
+    res.redirect(`/users/${userId}`);
 }));
 
 module.exports = router;

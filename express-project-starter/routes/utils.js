@@ -27,8 +27,6 @@ const handleValidationErrors = (req, res, next) => {
     next();
 };
 
-console.log("Please delete me.")
-
 module.exports = {
     asyncHandler,
     csrfProtection,
