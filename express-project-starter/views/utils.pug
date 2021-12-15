@@ -1,10 +1,10 @@
 mixin validationErrorSummary(errors)
   if errors
     div(class='alert alert-danger' role='alert')
-      p The following error(s) occurred:
+      p(class='alert') The following error(s) occurred:
       ul
         each error in errors
-          li= error
+          li(class='alert')= error
 
 mixin field(fieldName, fieldValue, fieldType = 'text')
   div(class='form-group')
