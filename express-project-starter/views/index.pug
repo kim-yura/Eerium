@@ -19,15 +19,15 @@ block content
       div(class='feed-stories')
         each story in stories
           div(class='feed-story')
-            p(class='feed-story')= story.User.username
-            p(class='feed-story')= story.title
-            p(class='feed-story')= story.createdAt
-            p(class='content')= story.content
+            p(class='story-title')= story.title
+            p(class='story-author')= story.User.username
+            p(class='story-metadata')= story.createdAt
+            p(class='story-snippet')= story.content
 
-      div(class='sidebar')
-        if locals.authenticated
 
-        else
+      if locals.authenticated
+      else
+        div(class='sidebar')
           p(id='discover-header') DISCOVER MORE OF WHAT MATTERS TO YOU
           div(class='discover-tabs')
             ul(class='discover-row')

@@ -2,6 +2,8 @@ h1 {
     color: white;
 }
 
+/* -- TOP NAVBAR --------------------------------------------------------------------------------------------------------------------------- */
+
 .top-navbar {
     position: -webkit-sticky;
     position: sticky;
@@ -64,13 +66,15 @@ h1 {
     margin-right: 10px;
 }
 
+/* -- SPLASH PAGE --------------------------------------------------------------------------------------------------------------------------- */
+
 .splash-main {
     padding-top: 20px;
     padding-bottom: 18px;
     background-color: #272640;
     border-bottom: 1px solid black;
     background-image: url("../splash-ghost.png");
-    background-position: right;
+    background-position: bottom 0px right 15%;
     background-size: contain;
     background-repeat: no-repeat;
 }
@@ -113,6 +117,8 @@ h1 {
     background-color: white;
 }
 
+/* -- FEED --------------------------------------------------------------------------------------------------------------------------- */
+
 .site-body {
     margin-top: 30px;
     margin-left: 10%;
@@ -126,18 +132,56 @@ h1 {
     grid-template-areas: 'scrolling sidebar';
 }
 
+/* -- FEED STORIES --------------------------------------------------------------------------------------------------------------------------- */
+
 .feed-story {
     background-color: #3a3b3c;
     border-radius: 10px;
     color: white;
     margin-top: 10px;
     padding: 15px;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-areas: 'story-title' 'story-author' 'story-snippet' 'story-metadata';
+    height: 227px;
 }
+
+.story-title {
+    grid-area: story-title;
+    font-size: 16px;
+    margin-bottom: -5px;
+    background-color: #3a3b3c;
+}
+
+.story-author {
+    display: inline-flex;
+    grid-area: story-author;
+    font-size: 12px;
+    background-color: #3a3b3c;
+}
+
+.story-snippet {
+    grid-area: story-snippet;
+    display: block;
+    overflow: hidden;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    background-color: #3a3b3c;
+    height: 70px;
+}
+
+.story-metadata {
+    grid-area: story-metadata;
+    font-size: 12px;
+    background-color: #3a3b3c;
+}
+
+/* -- FEED SIDEBAR --------------------------------------------------------------------------------------------------------------------------- */
 
 .sidebar {
     position: -webkit-sticky;
     position: sticky;
-    /* top: 700px; */
     grid-area: sidebar;
 }
 
@@ -146,6 +190,9 @@ h1 {
     font-size: 16px;
     margin: 20px;
     color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 130px;
 }
 
 .discover-tabs {
@@ -178,19 +225,11 @@ h1 {
     ;
 }
 
-.loginBody, .signupBody {
-    display:flex;
-    justify-content: center;
-}
-
 .content {
     line-height: 25px;
     background-color:#3a3b3c;
 }
 
-.login, .signup {
-    color:white;
-}
 * {
     background-color: #242526;
 }
