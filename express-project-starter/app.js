@@ -1,3 +1,5 @@
+//-------------------------------------------------------------------IMPORTS------------------------------------------------------------------//
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -16,6 +18,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
 
+//-------------------------------------------------------------------APP SETUP------------------------------------------------------------------//
 
 // view engine setup
 app.set('view engine', 'pug');
@@ -40,10 +43,10 @@ app.use('/stories', storiesRouter);
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });
 
-
-
 // create Session table if it doesn't already exist
 store.sync();
+
+//-------------------------------------------------------------------ERROR HANDLING------------------------------------------------------------------//
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,9 +1,16 @@
+//-------------------------------------------------------------------IMPORTS------------------------------------------------------------------//
+
 const db = require('./db/models');
+//-------------------------------------------------------------------MIDDLEWARE AND AUTH FUNCTIONS------------------------------------------------------------------//
 
 const loginUser = (req, res, user) => {
     req.session.auth = {
         userId: user.id,
     };
+};
+
+const logoutUser = (req, res) => {
+    delete req.session.auth;
 };
 
 const restoreUser = async (req, res, next) => {
@@ -35,19 +42,13 @@ const restoreUser = async (req, res, next) => {
     }
 };
 
-const logoutUser = (req, res) => {
-    delete req.session.auth;
-};
-
 const requireAuth = (req, res, next) => {
     console.log("test", res.locals);
     if (!res.locals.authenticated) {
-      return res.redirect('/users/login');
+        return res.redirect('/users/login');
     }
     return next();
-  };
-
-
+};
 
 module.exports = {
     loginUser,

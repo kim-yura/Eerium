@@ -1,9 +1,11 @@
+//-------------------------------------------------------------------IMPORTS------------------------------------------------------------------//
+
 const express = require('express');
 const router = express.Router();
 const db = require('../db/models')
 const { csrfProtection, asyncHandler } = require('./utils');
 
-
+//-------------------------------------------------------------------HOME------------------------------------------------------------------//
 
 /* GET home page. */
 router.get('/', asyncHandler(async (req, res, next) => {
