@@ -1,0 +1,45 @@
+.login-body {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.form-control {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    border: 2px solid white;
+    border-radius: 5px;
+    color: whitesmoke;
+    margin-bottom: 5px;
+}
+
+.login-buttons {
+    display: flex;
+    margin-top: 3px;
+}
+
+.login-button {
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    background: white;
+    padding: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    text-decoration: none;
+    width: 100px;
+}
+
+.signup-link {
+    margin-top: 20px;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.signup-link a {
+    font-size: 14px;
+}
