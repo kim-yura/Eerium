@@ -56,8 +56,13 @@ router.get('/create', requireAuth, csrfProtection, asyncHandler(async (req, res,
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.id, 10);
     const story = await Story.findByPk(storyId);
+    // console.log(story.userId);
     if (story) {
-        res.json({ story })
+        // res.json({ story })
+        res.render('story-read', {
+            csrfToken: req.csrfToken(),
+            story,
+        })
     } else {
         next(storyNotFoundError(storyId))
     }
@@ -137,26 +142,27 @@ router.post('/:id(\\d+)/edit', requireAuth, csrfProtection, storyValidations, as
 
 
 //-------------------------------------------------------------------DELETE ROUTES------------------------------------------------------------------//
-
-router.get('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+//modified Tue Night, test done.
+router.get('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
     const storyId = parseInt(req.params.id, 10);
     const story = await db.Story.findByPk(storyId);
-
     checkPermissions(story, res.locals.user);
 
-    res.render('/users/:userId', {
+    res.render('story-delete', {
         csrfToken: req.csrfToken(),
+        story
     });
 }));
 
-router.post('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
     const storyId = parseInt(req.params.id, 10);
     const story = await db.Story.findByPk(storyId);
-
+    console.log("my name is ", storyId);
     checkPermissions(story, res.locals.user);
 
     await story.destroy();
-    res.redirect('/users/:userId');
+    res.redirect('/');
+    // res.redirect('/users/:userId');
 }));
 
 
