@@ -1,5 +1,9 @@
+//-------------------------------------------------------------------IMPORTS------------------------------------------------------------------//
+
 const csrf = require('csurf');
 const csrfProtection = csrf({ cookie: true });
+
+//-------------------------------------------------------------------CUSTOM HANDLERS------------------------------------------------------------------//
 
 const asyncHandler = (handler) => (req, res, next) => handler(req, res, next).catch(next);
 
@@ -22,6 +26,9 @@ const handleValidationErrors = (req, res, next) => {
     }
     next();
 };
+
+console.log("Please delete me.")
+
 module.exports = {
     asyncHandler,
     csrfProtection,

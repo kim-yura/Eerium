@@ -1,3 +1,5 @@
+//-------------------------------------------------------------------IMPORTS------------------------------------------------------------------//
+
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
@@ -8,6 +10,7 @@ const { check, validationResult } = require('express-validator');
 const { loginUser, logoutUser, restoreUser } = require('../auth');
 
 
+//-------------------------------------------------------------------VALIDATIONS------------------------------------------------------------------//
 
 const userValidators = [
   check('username')
@@ -58,6 +61,7 @@ const userValidators = [
     })
 ]
 
+//-------------------------------------------------------------------USER SIGNUP------------------------------------------------------------------//
 
 /* GET users listing. */
 router.get('/signup', csrfProtection, (req, res) => {
@@ -102,6 +106,8 @@ router.post('/signup', csrfProtection, userValidators, asyncHandler(async (req, 
     });
   };
 }));
+
+//-------------------------------------------------------------------LOGIN------------------------------------------------------------------//
 
 // login
 router.get('/login', csrfProtection, (req, res) => {
@@ -161,11 +167,15 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
 //   next();
 // });
 
+//-------------------------------------------------------------------LOGOUT------------------------------------------------------------------//
+
 router.get('/logout', (req, res) => {
   // res.json("TEST");
   logoutUser(req, res);
   res.redirect('/');
 });
+
+//-------------------------------------------------------------------DEMO USER------------------------------------------------------------------//
 
 router.get('/demo', asyncHandler(async (req, res) => {
   console.log("SUCCESSFUL LOGIN");
@@ -199,6 +209,7 @@ router.get('/demo', asyncHandler(async (req, res) => {
   };
 }));
 
+//-------------------------------------------------------------------USER PROFILE ROUTE------------------------------------------------------------------//
 
 //  User Page shows user's activity
 router.get('/:userId', asyncHandler(async (req, res, next) => {
@@ -209,5 +220,7 @@ router.get('/:userId', asyncHandler(async (req, res, next) => {
   const userStories = user.Stories;
   res.render('user-profile', { title: `${user.username}'s Profile Page`, user, userStories });
 }))
+
+console.log("Please delete me.")
 
 module.exports = router;
