@@ -159,5 +159,6 @@ router.post('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async
     res.redirect('/users/:userId');
 }));
 
+console.log("Please kill me.")
 
 module.exports = router;
