@@ -11,7 +11,8 @@ block content
     h1= title
     div(class='feed-stories')
       each story in stories
-        p= story.User.username
-        p= story.title
-        p= story.createdAt
-        p= story.content
+        div(class='feed-story')
+          p(class='feed-story')= story.User.username
+          p(class='feed-story')= story.title
+          p(class='feed-story')= story.createdAt
+          p(class='feed-story')= story.content
