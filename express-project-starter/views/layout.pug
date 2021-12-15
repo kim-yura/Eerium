@@ -12,9 +12,8 @@ html
       div(class='top-navbar-right')
         ul
         if locals.authenticated
-          li
-            span(class='') Welcome #{user.username}!
-          li
+          div(class='navbar-buttons')
+            p(class='navbar-user-welcome') Welcome #{user.username}!
             a(class='navbar-button' href='/users/logout') Log Out
         else
           li

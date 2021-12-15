@@ -221,4 +221,6 @@ router.get('/:userId', asyncHandler(async (req, res, next) => {
   res.render('user-profile', { title: `${user.username}'s Profile Page`, user, userStories });
 }))
 
+console.log("Please delete me.")
+
 module.exports = router;

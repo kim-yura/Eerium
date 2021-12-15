@@ -1,0 +1,10 @@
+extends layout.pug
+
+block content
+  div
+    p Please confirm to delete this story
+  div
+  form(action=`/stories/${story.id}/delete`, method='post')
+    input(type="hidden", name="_csrf", value=csrfToken)
+    button(type= 'submit') Delete Story
+    a(href=`/stories/${story.id}` class='') Cancel
