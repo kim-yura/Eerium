@@ -79,6 +79,19 @@ h1 {
     margin-right: 10.5%;
 }
 
+.loginBody, .signupBody {
+    display:flex;
+    justify-content: center;
+}
+
+.content {
+    line-height: 25px;
+    background-color:#3a3b3c;
+}
+
+.login, .signup {
+    color:white;
+}
 * {
     background-color: #242526;
 }

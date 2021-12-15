@@ -7,14 +7,14 @@ append head
   link(rel="stylesheet" href="/stylesheets/index.css")
 
 block content
-  div(class='site-body')
+  div(class='loginBody')
     +validationErrorSummary(errors)
-    form(action='/users/login' method='post')
+    form(class='login' action='/users/login' method='post')
       input(type='hidden' name='_csrf' value=csrfToken)
       +field('Email Address', 'email', email)
       +field('Password', 'password', null, 'password')
       div(class='')
-        button(type='submit' class='') Login
+        button(class='login' type='submit' class='') Login
         a(href='/' class='') Cancel
       div
           p: a(href='/users/signup') Don't have an account?
