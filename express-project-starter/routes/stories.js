@@ -6,7 +6,7 @@ const { check, validationResult } = require('express-validator');
 
 const db = require('../db/models');
 const { Story } = db;
-const { asyncHandler, csrfProtection } = require('./utils');
+const { asyncHandler, csrfProtection, handleValidationErrors } = require('./utils');
 const { loginUser, logoutUser, requireAuth, restoreUser } = require('../auth');
 
 //-------------------------------------------------------------------VALIDATIONS------------------------------------------------------------------//
@@ -21,6 +21,14 @@ const storyValidations = [
         .exists({ checkFalsy: true })
         .withMessage("Content can not be empty."),
 ];
+
+const checkPermissions = (book, currentUser) => {
+    if (book.userId !== currentUser.id) {
+        const err = new Error('Illegal operation.');
+        err.status = 403; // Forbidden
+        throw err;
+    }
+};
 
 //--------------------------------------------------------------------CUSTOM ERRORS-------------------------------------------------------------------------------//
 
@@ -63,7 +71,6 @@ router.post('/create', requireAuth, csrfProtection, storyValidations, asyncHandl
         userId: res.locals.user.id, title, content
     })
 
-    console.log('this is a test', story)
 
     const validatorErrors = validationResult(req);
     if (validatorErrors.isEmpty()) {
@@ -81,7 +88,76 @@ router.post('/create', requireAuth, csrfProtection, storyValidations, asyncHandl
 
 //-------------------------------------------------------------------EDIT ROUTES------------------------------------------------------------------//
 
+router.get('/:id(\\d+)/edit', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+    const storyId = parseInt(req.params.id, 10);
+    const story = await db.Story.findByPk(storyId);
+
+    checkPermissions(story, res.locals.user);
+
+    console.log("story edit test", story)
+
+    res.render('story-edit', {
+        title: 'Edit Story',
+        story,
+        csrfToken: req.csrfToken(),
+    });
+}));
+
+router.post('/:id(\\d+)/edit', requireAuth, csrfProtection, storyValidations, asyncHandler(async (req, res) => {
+    const storyId = parseInt(req.params.id, 10);
+    const storyToUpdate = await db.Story.findByPk(storyId);
+
+    checkPermissions(storyToUpdate, res.locals.user);
+
+    const {
+        title,
+        content
+    } = req.body;
+
+    const story = {
+        title,
+        content
+    };
+
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+        await storyToUpdate.update(story);
+        res.redirect(`/stories/${storyToUpdate.id}`);
+    } else {
+        const errors = validatorErrors.array().map((error) => error.msg);
+        res.render('story-edit', {
+            title: 'Edit Story',
+            story: { ...story, storyId },
+            errors,
+            csrfToken: req.csrfToken(),
+        });
+    }
+}));
+
+
 //-------------------------------------------------------------------DELETE ROUTES------------------------------------------------------------------//
+
+router.get('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+    const storyId = parseInt(req.params.id, 10);
+    const story = await db.Story.findByPk(storyId);
+
+    checkPermissions(story, res.locals.user);
+
+    res.render('/users/:userId', {
+        csrfToken: req.csrfToken(),
+    });
+}));
+
+router.post('/delete/:id(\\d+)', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
+    const storyId = parseInt(req.params.id, 10);
+    const story = await db.Story.findByPk(storyId);
+
+    checkPermissions(story, res.locals.user);
+
+    await story.destroy();
+    res.redirect('/users/:userId');
+}));
 
 
 module.exports = router;
