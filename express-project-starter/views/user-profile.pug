@@ -7,10 +7,11 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  div(class='site-body')
+  div(class='profile')
+    div
     h1= title
-    div(class='user-stories')
       each story in userStories
-        p= story.title
-        p= story.createdAt
-        p= story.content
+        div(class='user-stories')
+          p(class='user-stories-created')= story.createdAt
+          p(class='user-stories-title')= story.title
+          p(class='user-stories')= story.content
