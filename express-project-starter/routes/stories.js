@@ -158,12 +158,16 @@ router.get('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async 
 router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
     const storyId = parseInt(req.params.id, 10);
     const story = await db.Story.findByPk(storyId);
+
     console.log("my name is ", storyId);
+
     checkPermissions(story, res.locals.user);
 
+    const userId = res.locals.user.id
+
     await story.destroy();
-    res.redirect('/');
-    // res.redirect('/users/:userId');
+    // res.redirect('/');
+    res.redirect(`/users/${userId}`);
 }));
 
 module.exports = router;
