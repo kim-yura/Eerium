@@ -35,6 +35,20 @@ commentsRouter.post("/", asyncHandler(async (req, res, next) => {
   res.json({ username, comment })
 }))
 
+// commentsRouter.delete("/", asyncHandler(async (req, res, next) => {
+//   const userId = req.session.auth.userId;
+//   const sessionUser = await User.findByPk(userId);
+//   // console.log("SESSION USER", sessionUser)
+//   const username = sessionUser.username
+//   const { content, storyId } = req.body;
+//   const comment = await Comment.create({
+//     content,
+//     userId,
+//     storyId
+//   })
+//   res.json({ username, comment })
+// }
+
 
 module.exports = commentsRouter
 
