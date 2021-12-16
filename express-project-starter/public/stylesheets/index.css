@@ -7,7 +7,9 @@ h1 {
 .top-navbar {
     position: -webkit-sticky;
     position: sticky;
-    top: -2px;
+    top: 0px;
+    bottom: 0px;
+    z-index: 1;
     background-color: #272640;
     display: flex;
     justify-content: space-between;
@@ -307,26 +309,34 @@ header {
 /* -- FEED SIDEBAR --------------------------------------------------------------------------------------------------------------------------- */
 
 .sidebar {
+    z-index: 0;
     position: -webkit-sticky;
     position: sticky;
+    top: 100px;
     grid-area: sidebar;
 }
 
 #discover-header {
+    z-index: 0;
     font-weight: bold;
     font-size: 16px;
     margin: 20px;
     color: white;
     position: -webkit-sticky;
     position: sticky;
-    top: 130px;
+    top: 100px;
 }
 
 .discover-tabs {
-    display: inline;
+    position: -webkit-sticky;
+    position: sticky;
+    /* display: inline; */
+    top: 120px;
 }
 
 .discover-row {
+    position: -webkit-sticky;
+    position: sticky;
     display: flex;
     flex-direction: row;
     margin-left: 20px;
@@ -335,6 +345,9 @@ header {
 
 .discover-tabs li {
     list-style: none;
+    z-index: 0;
+    position: -webkit-sticky;
+    position: sticky;
     border: 1px solid lightgray;
     border-width: max-content;
     padding-top: 7px;
@@ -346,10 +359,11 @@ header {
 }
 
 .discover-tabs a {
+    position: -webkit-sticky;
+    position: sticky;
     text-decoration: none;
     color: gray;
     font-size: 14px;
-    ;
 }
 
 * {
