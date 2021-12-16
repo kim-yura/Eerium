@@ -6,10 +6,11 @@ const { check, validationResult } = require('express-validator');
 
 const db = require('../db/models');
 
-const { Story } = db;
+const { Story, User, Comment } = db;
 
 const { asyncHandler, csrfProtection, handleValidationErrors } = require('./utils');
 const { loginUser, logoutUser, requireAuth, restoreUser } = require('../auth');
+
 
 //-------------------------------------------------------------------VALIDATIONS------------------------------------------------------------------//
 
@@ -57,13 +58,24 @@ router.get('/create', requireAuth, csrfProtection, asyncHandler(async (req, res,
 //~~~~GET SPECIFIC STORY~~~~//
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.id, 10);
-    const story = await Story.findByPk(storyId);
+    const story = await Story.findOne({
+        where: {id: storyId},
+        include: User
+    })
+    const comments = await Comment.findAll({
+        where: {storyId},
+        include: User,
+        order: [
+            ['createdAt', 'DESC']
+          ]
+    })
     // console.log("STORY USER ID", story);
     // console.log("LOCAL USER ID", res)
     if (story) {
         res.render('story-read', {
             csrfToken: req.csrfToken(),
             story,
+            comments,
         })
     } else {
         next(storyNotFoundError(storyId))
