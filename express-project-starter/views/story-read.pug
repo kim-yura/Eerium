@@ -3,6 +3,8 @@ extends layout.pug
 include utils.pug
 
 block content
+  append head
+    script(src="/javascripts/comments.js" type="module" defer)
   +validationErrorSummary(errors)
   h1= story.title
   p= story.content
@@ -12,3 +14,18 @@ block content
         button Edit
       a(href=`/stories/${story.id}/delete`)
         button Delete
+
+  if authenticated
+  textarea.commentContent(name="comment", storyId=story.id, cols="30", rows="10", required = true)
+  button.commentSubmit(type="submit") Submit
+
+  h2 Comments
+  ul.commentContainer
+    each comment in comments
+      div
+        p= comment.User.username
+        li= comment.content
+        if authenticated
+          if (locals.user.id === comment.userId)
+            button(class = `editComment_${comment.id}`) Edit
+            button(class = `deleteComment_${comment.id}`) Delete
