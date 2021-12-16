@@ -9,7 +9,6 @@ append head
 
 block content
   div(class='login-body')
-    +validationErrorSummary(errors)
     form(class='signup' action='/users/signup' method='post')
       input(type='hidden' name='_csrf' value=csrfToken)
       +field('Username', 'username', user.username)
@@ -21,3 +20,4 @@ block content
         a(href='/' class='login-button') Cancel
       div(class='signup-link')
         a(href='/users/login') Already have an account?
+  +validationErrorSummary(errors)

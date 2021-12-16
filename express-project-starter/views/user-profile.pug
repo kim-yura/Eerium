@@ -16,8 +16,7 @@ block content
           p(class='user-stories-title')= story.title
           p(class='user-stories')= story.content
           if authenticated
-            if locals.user.id == story.userId
-              p= story.userId
+            if (sessionUser.id === story.userId)
               a(href=`/stories/${story.id}/edit`)
                 button Edit
               a(href=`/stories/${story.id}/delete`)

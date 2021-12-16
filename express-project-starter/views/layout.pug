@@ -13,7 +13,8 @@ html
         ul
         if locals.authenticated
           div(class='navbar-buttons')
-            p(class='navbar-user-welcome') Welcome #{user.username}!
+            if sessionUsername!==undefined
+              p(class='navbar-user-welcome') Welcome #{sessionUsername}!
             a(class='navbar-button' href='/stories/create') Write Story
             a(class='navbar-button' href='/users/logout') Log Out
         else

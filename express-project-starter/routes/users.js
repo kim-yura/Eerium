@@ -221,7 +221,17 @@ router.get('/:userId', asyncHandler(async (req, res, next) => {
   });
   // console.log("RES LOCALS USER ID", res.locals.user.id)
   const userStories = user.Stories;
-  res.render('user-profile', { title: `${user.username}'s Profile Page`, user, userStories });
+
+  let sessionUserId;
+  let sessionUser;
+  let sessionUsername;
+  if (res.locals.user) {
+    sessionUserId = res.locals.user.id;
+    sessionUser = await db.User.findByPk(sessionUserId);
+    sessionUsername = sessionUser.username;
+  };
+
+  res.render('user-profile', { title: `${user.username}'s Profile Page`, user, userStories, sessionUser, sessionUsername });
 }))
 
 module.exports = router;

@@ -19,8 +19,8 @@ block content
       div(class='feed-stories')
         each story in stories
           div(class='feed-story')
-            p(class='story-title')= story.title
-            p(class='story-author')= story.User.username
+            a(href=`/stories/${story.id}`, class='story-title')= story.title
+            a(href=`/users/${story.User.id}`, class='story-author')= story.User.username
             p(class='story-metadata')= story.createdAt
             p(class='story-snippet')= story.content
 
