@@ -5,6 +5,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 
 const db = require('../db/models');
+
 const { csrfProtection, asyncHandler } = require('./utils');
 const { check, validationResult } = require('express-validator');
 const { loginUser, logoutUser, restoreUser } = require('../auth');
@@ -214,9 +215,11 @@ router.get('/demo', asyncHandler(async (req, res) => {
 //  User Page shows user's activity
 router.get('/:userId', asyncHandler(async (req, res, next) => {
   const userId = (req.params.userId);
+  // console.log("USER ID", userId)
   const user = await db.User.findByPk(userId, {
     include: [db.Story, db.Comment]
   });
+  // console.log("RES LOCALS USER ID", res.locals.user.id)
   const userStories = user.Stories;
 
   let sessionUserId;
