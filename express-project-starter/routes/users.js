@@ -230,7 +230,6 @@ router.get('/:userId', asyncHandler(async (req, res, next) => {
     sessionUser = await db.User.findByPk(sessionUserId);
     sessionUsername = sessionUser.username;
   };
-
   res.render('user-profile', { title: `${user.username}'s Profile Page`, user, userStories, sessionUser, sessionUsername });
 }))
 

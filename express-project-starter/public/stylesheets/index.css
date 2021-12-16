@@ -120,16 +120,6 @@ h1 {
 
 /* -- FEED --------------------------------------------------------------------------------------------------------------------------- */
 
-.profile {
-    display: grid;
-    grid-template-columns: 25% 50% 25%;
-    grid-template-areas: "profile stories space";
-    margin-top: 30px;
-    margin-left: 10%;
-    margin-right: 10.5%;
-}
-
-
 .site-body {
     margin-top: 30px;
     margin-left: 10%;
@@ -143,11 +133,134 @@ h1 {
     grid-template-areas: 'scrolling sidebar';
 }
 
+/* -- USER PROFILE PAGE --------------------------------------------------------------------------------------------------------------------------- */
+
+
+.profile {
+    display: grid;
+    grid-template-columns: 25% 50% 25%;
+    column-gap: 20px;
+    /* grid-template-areas: "profile stories space"; */
+    margin-top: 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.user-stories {
+    grid-column: 1;
+    background-color: #3a3b3c;
+    border-radius: 10px;
+    color: white;
+    margin-top: 10px;
+    padding: 15px;
+}
+
+.user-stories-content {
+    background-color: #3a3b3c;
+}
+
+.user-stories-title {
+    background-color: #3a3b3c;
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.user-stories-created {
+    background-color: #3a3b3c;
+    font-size: 15px;
+    line-height: 30px;
+}
+
+.personInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    color:white;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    /* margin-right: 30px; */
+}
+
+.subscribe {
+    color:white;
+}
+
+header {
+    background-color: #272640;
+    color:white;
+    display:grid;
+    /* justify-content: center; */
+    align-items: center;
+    height: 100px;
+    border-bottom: solid gray 1px;
+}
+
+.profileNav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #272640;
+}
+
+.leftSideNav {
+    background-color:#272640;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    margin-left:180px;
+}
+
+.rightSideNav {
+    background-color: #272640;
+    display: flex;
+    align-items: center;
+    margin-right:180px;
+    padding: 0px 5px;
+}
+
+.navUser {
+    font-weight: bolder;
+    font-size:25px;
+    margin: 0px 10px;
+}
+
+.navFollower {
+    margin: 0px 10px;
+}
+
+.navAbout {
+    margin: 0px 10px;
+}
+
+.followBtn {
+    margin: 0px 10px;
+}
+
+.subBtn {
+    margin: 0px 10px;
+}
+
+.searchbtn {
+    margin: 0px 10px;
+}
+
+.upgradebtn {
+    margin: 0px 10px;
+}
+
+.profilebtns {
+    display:flex;
+}
+
+.subbtn2, .followbtn2 {
+    margin-left: 10px;
+}
 
 /* -- FEED STORIES --------------------------------------------------------------------------------------------------------------------------- */
 
-.feed-story, .user-stories {
-
+.feed-story {
     background-color: #3a3b3c;
     border-radius: 10px;
     color: white;
@@ -192,26 +305,6 @@ h1 {
 }
 
 /* -- FEED SIDEBAR --------------------------------------------------------------------------------------------------------------------------- */
-
-
-.user-stories-title {
-    background-color: #3a3b3c;
-    border-radius: 10px;
-    color: white;
-    margin-top: 10px;
-    padding: 15px;
-    font-weight: bolder;
-    font-size: 30px;
-}
-
-.user-stories-created {
-    background-color: #3a3b3c;
-    border-radius: 10px;
-    color: white;
-    margin-top: 10px;
-    padding: 15px;
-    font-size: 15px;
-}
 
 .sidebar {
     position: -webkit-sticky;
