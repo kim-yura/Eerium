@@ -32,10 +32,6 @@ commentsRouter.post("/", asyncHandler(async (req, res, next) => {
     userId,
     storyId
   })
-  console.log("run here2")
-  //const user = await User.findbyPk(comment.userId)
-  // const user = "9999"
-  console.log("run here3")
   res.json({ username, comment })
 }))
 
