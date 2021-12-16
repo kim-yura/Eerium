@@ -1,6 +1,7 @@
 //-------------------------------------------------------------------IMPORTS------------------------------------------------------------------//
 
 const db = require('./db/models');
+
 //-------------------------------------------------------------------MIDDLEWARE AND AUTH FUNCTIONS------------------------------------------------------------------//
 
 const loginUser = (req, res, user) => {
@@ -20,7 +21,7 @@ const restoreUser = async (req, res, next) => {
 
     if (req.session.auth) {
         const { userId } = req.session.auth;
-
+        console.log(req.session)
         try {
             const user = await db.User.findByPk(userId);
 
@@ -28,8 +29,8 @@ const restoreUser = async (req, res, next) => {
                 res.locals.authenticated = true;
                 res.locals.user = user;
                 // console.log(res.locals.authenticated);
-                // console.log(`.....................................`)
-                // console.log(res.locals.user);
+                console.log(`.....................................`)
+                console.log(res.locals.user.id);
                 next();
             }
         } catch (err) {

@@ -17,6 +17,7 @@ const { restoreUser } = require('./auth');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
+const commentsRouter = require('./routes/comments');
 
 //-------------------------------------------------------------------APP SETUP------------------------------------------------------------------//
 
@@ -39,6 +40,7 @@ app.use(restoreUser);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stories', storiesRouter);
+app.use('/comments', commentsRouter);
 
 // set up session middleware
 const store = new SequelizeStore({ db: sequelize });

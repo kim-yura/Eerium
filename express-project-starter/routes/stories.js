@@ -24,8 +24,8 @@ const storyValidations = [
         .withMessage("Content can not be empty."),
 ];
 
-const checkPermissions = (book, currentUser) => {
-    if (book.userId !== currentUser.id) {
+const checkPermissions = (story, currentUser) => {
+    if (story.userId !== currentUser.id) {
         const err = new Error('Illegal operation.');
         err.status = 403; // Forbidden
         throw err;
@@ -58,9 +58,9 @@ router.get('/create', requireAuth, csrfProtection, asyncHandler(async (req, res,
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.id, 10);
     const story = await Story.findByPk(storyId);
-    // console.log(story.userId);
+    // console.log("STORY USER ID", story);
+    // console.log("LOCAL USER ID", res)
     if (story) {
-        // res.json({ story })
         res.render('story-read', {
             csrfToken: req.csrfToken(),
             story,
