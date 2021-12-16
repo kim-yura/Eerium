@@ -40,29 +40,33 @@ const commentNotFoundError = (commentId) => {
 
 //~~~~~GET ALL COMMENTS~~~~~//
 router.get("/", asyncHandler(async (req, res) => {
-      const comments = await Comment.findAll();
-      res.json({ comments });
-    })
-  );
+    const comments = await Comment.findAll();
+    if (comments) {
+        res.json({ comments });
+    } else {
+        next(commentNotFoundError(commentId));
+    }
+})
+);
 
 //~~~~~GET SPECIFIC COMMENT~~~~~//
-  router.get("/:id(\\d+)", asyncHandler(async (req, res, next) => {
-      const taskId = parseInt(req.params.id, 10);
-      const task = await Task.findByPk(taskId);
-      res.json({ task });
-    })
-  );
+router.get("/:id(\\d+)", asyncHandler(async (req, res, next) => {
+    const taskId = parseInt(req.params.id, 10);
+    const task = await Task.findByPk(taskId);
+    res.json({ task });
+})
+);
 
 //--------------------------------------------------------------------POST ROUTES-------------------------------------------------------------------------------//
 
 //~~~~~CREATE A COMMENT~~~~~//
-  router.post("/", commentValidations, handleValidationErrors, asyncHandler(async (req, res) => {
-      const { storyId, userId, content } = req.body;
-      const comment = await Comment.create({ storyId, userId, content });
-      res.status(201).json({ comment });
-    })
-  );
+router.post("/", commentValidations, handleValidationErrors, asyncHandler(async (req, res) => {
+    const { storyId, userId, content } = req.body;
+    const comment = await Comment.create({ storyId, userId, content });
+    res.status(201).json({ comment });
+})
+);
 
 
 
-  module.exports = router;
+module.exports = router;

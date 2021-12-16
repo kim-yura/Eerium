@@ -215,11 +215,11 @@ router.get('/demo', asyncHandler(async (req, res) => {
 //  User Page shows user's activity
 router.get('/:userId', asyncHandler(async (req, res, next) => {
   const userId = (req.params.userId);
-  // console.log("USER ID", userId)
+  // console.log("USER ID", userId) 2
   const user = await db.User.findByPk(userId, {
     include: [db.Story, db.Comment]
   });
-  // console.log("RES LOCALS USER ID", res.locals.user.id)
+  // console.log("RES LOCALS USER ID", res.locals.user.id) 1
   const userStories = user.Stories;
 
   let sessionUserId;
