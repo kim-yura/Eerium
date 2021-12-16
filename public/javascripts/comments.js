@@ -33,50 +33,53 @@ document.addEventListener("DOMContentLoaded", (event) => {
     commentTextarea.value = "";
   })
 
-  // const deleteCommentButton = document.querySelector(`deleteComment_${event.target.id}`);
-  const deleteCommentButton = document.querySelector("[class^='deleteComment']");
+  const deleteCommentButton = document.querySelectorAll(`.deleteComment`);
 
-  deleteCommentButton.addEventListener("click", async (event) => {
-
-    console.log("DELETE BUTTON", event.target.id)
-
-    const commentTextarea = document.querySelector(".commentContent");
-    const storyId = commentTextarea.getAttribute("storyId");
-    const content = commentTextarea.value;
-    const body = { content, storyId };
-    const commentUl = document.querySelector(".commentContainer");
-
-    try {
-      const commentJson = await fetch("/comments", {
-        method: "POST",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" },
-      });
+  deleteCommentButton.forEach(button => {
+    button.addEventListener("click", async (event) => {
+      console.log("DELETE BUTTON")
 
 
-      const commentDiv = document.createElement("div");
-      commentDiv.innerHTML = `
-                  <p>${username}</p>
-                  <li>${comment.content}</li>
-                  <button class='editComment'>Edit</button>
-                  <button class='deleteComment'>Delete</button>
-                  `;
+      // const commentTextarea = document.querySelector(".commentContent");
+      // const storyId = commentTextarea.getAttribute("storyId");
+      // const content = commentTextarea.value;
+      // const body = { id: event.target.id.split("-")[1] };
+      const commentId = event.target.id.split("-")[1]
 
-      const verifyDelete = document.createElement("div");
-      verifyDelete.innerHTML = `
-                  <p>Are you sure you want to delete this comment?</p>
-                  <button class='deleteComment'>Delete</button>
-                  <button class='cancelDelete'>Cancel</button>
-                  `;
 
-      commentDiv.appendChild(verifyDelete);
+      // const commentUl = document.querySelector(".commentContainer");
 
-    } catch (error) { }
+      try {
+        const res = await fetch("/comments/commentId", {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+        })
 
-    console.log(error);
+        // const commentJson = await fetch("/comments", {
+        //   method: "DELETE",
+        //   body: JSON.stringify(body),
+        //   headers: { "Content-Type": "application/json" },
+        // });
+
+        // const deleteComment = await commentJson.json();
+
+        const { message } = { message: 'success :D' };
+
+        if (message === 'success :D') {
+            event.target.parentNode.remove()
+        }
+
+        // const commentDiv = document.createElement("div");
+        // commentDiv.innerHTML = `
+        // <p>${username}</p>
+        // <li>${comment.content}</li>
+        // <button class='editComment'>Edit</button>
+        // <button class='deleteComment'>Delete</button>
+        // `;
+
+      } catch (error) {
+        console.log(error);
+      }
+    })
   })
-
-
-
-
 })

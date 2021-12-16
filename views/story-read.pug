@@ -27,5 +27,5 @@ block content
         li= comment.content
         if authenticated
           if (locals.user.id === comment.userId)
-            button(class = `editComment_${comment.id}`) Edit
-            button(class = `deleteComment_${comment.id}`) Delete
+            button(class=`editComment_${comment.id}`) Edit
+            button(class=`deleteComment` id=`comment-${comment.id}`) Delete
