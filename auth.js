@@ -29,8 +29,8 @@ const restoreUser = async (req, res, next) => {
                 res.locals.authenticated = true;
                 res.locals.user = user;
                 // console.log(res.locals.authenticated);
-                console.log(`.....................................`)
-                console.log(res.locals.user.id);
+                // console.log(`.....................................`)
+                // console.log(res.locals.user.id);
                 next();
             }
         } catch (err) {
