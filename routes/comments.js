@@ -13,25 +13,20 @@ const { loginUser, logoutUser, requireAuth, restoreUser } = require('../auth');
 //-------------------------------------------------------------------VALIDATIONS------------------------------------------------------------------//
 
 const commentValidations = [
-    check("content")
-        .exists({ checkFalsy: true })
-        .withMessage("Comment can not be empty."),
+  check("content")
+    .exists({ checkFalsy: true })
+    .withMessage("Comment can not be empty."),
 ];
 
-// const checkPermissions = (story, currentUser) => {
-//     if (story.userId !== currentUser.id) {
-//         const err = new Error('Illegal operation.');
-//         err.status = 403; // Forbidden
-//         throw err;
-//     }
-// };
 
 commentsRouter.post("/", asyncHandler(async (req, res, next) => {
   // console.log("start comments submit");
   // console.log(req.session);
   const userId = req.session.auth.userId;
-  const userName = await User.findByPk(userId);
-  const {content, storyId} = req.body;
+  const sessionUser = await User.findByPk(userId);
+  // console.log("SESSION USER", sessionUser)
+  const username = sessionUser.username
+  const { content, storyId } = req.body;
   const comment = await Comment.create({
     content,
     userId,
@@ -39,28 +34,22 @@ commentsRouter.post("/", asyncHandler(async (req, res, next) => {
   })
   console.log("run here2")
   //const user = await User.findbyPk(comment.userId)
-  const user = "9999"
+  // const user = "9999"
   console.log("run here3")
-  res.json({user, comment})
+  res.json({ username, comment })
 }))
 
 
 module.exports = commentsRouter
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // //--------------------------------------------------------------------CUSTOM ERRORS-------------------------------------------------------------------------------//
+// const checkPermissions = (story, currentUser) => {
+//     if (story.userId !== currentUser.id) {
+//         const err = new Error('Illegal operation.');
+//         err.status = 403; // Forbidden
+//         throw err;
+//     }
+// };
 
 // const commentNotFoundError = (commentId) => {
 //     const err = new Error("The requested comment could not be found with the given ID.");

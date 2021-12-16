@@ -59,15 +59,15 @@ router.get('/create', requireAuth, csrfProtection, asyncHandler(async (req, res,
 router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res, next) => {
     const storyId = parseInt(req.params.id, 10);
     const story = await Story.findOne({
-        where: {id: storyId},
+        where: { id: storyId },
         include: User
     })
     const comments = await Comment.findAll({
-        where: {storyId},
+        where: { storyId },
         include: User,
         order: [
             ['createdAt', 'DESC']
-          ]
+        ]
     })
     // console.log("STORY USER ID", story);
     // console.log("LOCAL USER ID", res)
