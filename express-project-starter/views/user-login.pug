@@ -12,8 +12,8 @@ block content
     +validationErrorSummary(errors)
     form(class='login' action='/users/login' method='post')
       input(type='hidden' name='_csrf' value=csrfToken)
-      +field('Email Address', 'email', email)
-      +field('Password', 'password', null, 'password')
+      +field('email', 'email', email)
+      +field('password', 'password', null, 'password')
       div(class='login-buttons')
         button(type='submit' class='login-button') Login
         a(href='/' class='login-button') Cancel
