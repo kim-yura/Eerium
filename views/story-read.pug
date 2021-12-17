@@ -9,6 +9,7 @@ block content
   h1= story.title
   p= story.content
   if authenticated
+    button(class="storyLike", storyId= story.id) Like
     if (locals.user.id === story.userId)
       a(href=`/stories/${story.id}/edit`)
         button Edit
@@ -29,3 +30,4 @@ block content
           if (locals.user.id === comment.userId)
             button(class=`editComment` id=`comment-${comment.id}`) Edit
             button(class=`deleteComment` id=`comment-${comment.id}`) Delete
+            button(class="commentLike", commentId= comment.id) Like

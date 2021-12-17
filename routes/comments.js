@@ -19,12 +19,10 @@ const commentValidations = [
 
 //-------------------------------------------------------------------CREATE COMMENT------------------------------------------------------------------//
 
-commentsRouter.post("/", asyncHandler(async (req, res, next) => {
-  // console.log("start comments submit");
-  // console.log(req.session);
+commentsRouter.post("/", commentValidations, asyncHandler(async (req, res, next) => {
   const userId = req.session.auth.userId;
   const sessionUser = await User.findByPk(userId);
-  // console.log("SESSION USER", sessionUser)
+
   const username = sessionUser.username
   const { content, storyId } = req.body;
   const comment = await Comment.create({
@@ -51,7 +49,7 @@ commentsRouter.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
 //-------------------------------------------------------------------EDIT COMMENT------------------------------------------------------------------//
 
-commentsRouter.patch('/:id(\\d+)', asyncHandler(async (req, res, next) => {
+commentsRouter.patch('/:id(\\d+)', commentValidations, asyncHandler(async (req, res, next) => {
   console.log("REQ", req.body)
   const commentId = parseInt(req.params.id, 10);
   const comment = await Comment.findByPk(commentId);

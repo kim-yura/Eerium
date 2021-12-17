@@ -182,4 +182,31 @@ router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async
     res.redirect(`/users/${userId}`);
 }));
 
+//-------------------------------------------------------------------LIKE ROUTES------------------------------------------------------------------//
+
+//~~~~~LIKE COMMENT~~~~~//
+
+router.put("/comments/likes", asyncHandler(async (req, res) => {
+
+    const userId = res.locals.user.id;
+    const { commentId } = req.body;
+
+    const like = await Like.findOne({
+        where: { userId, commentId }
+    })
+
+    if (!like) {
+        await like.create({
+            userId,
+            commentId
+        })
+        res.json({ message: "Liked!" })
+    } else {
+        await like.remove()
+        res.json({ message: "Unliked!" })
+    }
+
+}))
+
+
 module.exports = router;
