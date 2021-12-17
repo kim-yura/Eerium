@@ -1,0 +1,72 @@
+.profile-body {
+    display: grid;
+    grid-template-columns: 25% 75%;
+    column-gap: 20px;
+    grid-template-areas: 'leftNav mainNav';
+    margin-top: 30px;
+    margin-left: 12.5%;
+    margin-right: 12.5%;
+}
+
+.profile-left-container {
+    grid-area: 'leftNav';
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.profile-user {
+    font-size: 24px;
+}
+
+.divider {
+    width: 50%;
+    border-top: double gray;
+    padding-bottom: 20px;
+}
+
+.nav-about-text {
+    font-size: 12px;
+    margin-top: -5px;
+}
+
+.profile-followers {
+    color: black;
+    border: solid 1px white;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding: 9px;
+    background-color: white;
+    border-radius: 100px;
+}
+
+.profile-main-container {
+    grid-area: 'mainNav';
+    display: grid;
+    margin-bottom: 20px;
+}
+
+.person-img {
+    border: solid 1px gray;
+    border-radius: 50%;
+}
+
+.profile-story-title {
+    font-size: 24px;
+}
+
+.profile-story-content{
+    background-color: #3a3b3c;
+}
+
+.profile-edit-button {
+    color: black;
+    border: 1px solid black;
+    background: white;
+    padding: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-right: 10px;
+    border-radius: 20px;
+}

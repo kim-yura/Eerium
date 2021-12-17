@@ -1,42 +1,31 @@
-//- extends layout
+extends layout
 
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/profile.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  header
-    div(class='profileNav')
-      div(class='leftSideNav')
-        p(class='navUser')=user.username
-        p(class='navFollower') Followers
-        p(class='navAbout') About
-        button(class='followBtn' style='width:70px;height:20px') Follow
-        button(class='subBtn' style='width:70px;height:20px') Subscribe
-      div(class='rightSideNav')
-        img(class='searchbtn' src='../search.png', style='width:25px;height:15px')
-        button(class='upgradebtn' style='width:70px;height:20px') Upgrade
-  div(class='profile')
-    div(class='personInfo')
-      img(class= 'personImg' src='../splash-ghost.png', style='width:150px;height:150px')
-      div(class='personName')=user.username
-      div(class='personDetails') Insert Info Here
-      div(class='profilebtns')
-        button(class='followbtn2' style='width:70px;height:20px') Follow
-        button(class='subbtn2' style='width:70px;height:20px') Subscribe
-      //- button(class='subscribe' style='width:50px;height:20px')
-      //-   img(src='../splash-ghost.png' style='width:50px;height:10px')
-    div
+  div(class='profile-body')
+    div(class='profile-left-container')
+      img(class='person-img' src='../splash-ghost.png', style='width:150px;height:150px')
+      p(class='profile-user')=user.username
+      .divider
+      p(class='') About
+      p(class='nav-about-text') Just a regular guy named Dave.
+      p(class='profile-followers') Followers
+
+    div(class='profile-main-container')
       each story in userStories
         div(class='user-stories')
           p(class='user-stories-created')= story.createdAt
-          p(class='user-stories-title')= story.title
-          p(class='user-stories-content')= story.content
+          a(href=`/stories/${story.id}`, class='profile-story-title')= story.title
+          p(class='profile-story-content')= story.content
           if authenticated
             if (sessionUser.id === story.userId)
               a(href=`/stories/${story.id}/edit`)
-                button Edit
+                button(class='profile-edit-button') Edit
               a(href=`/stories/${story.id}/delete`)
-                button Delete
+                button(class='profile-edit-button') Delete
