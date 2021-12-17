@@ -35,3 +35,34 @@
     width: 30%;
     align-self: center;
 }
+
+.delete-button {
+    color: black;
+    border: 1px solid black;
+    background: whitesmoke;
+    padding: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-left: 10px;
+    border-radius: 20px;
+    align-self: center;
+    text-decoration: none;
+    font-size: 12px;
+    width: 100px;
+    text-align: center;
+}
+
+.delete-story {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 20px;
+    align-items: center;
+    color: whitesmoke;
+}
+
+#delete-form {
+    display: flex;
+    flex-direction: column;
+}
