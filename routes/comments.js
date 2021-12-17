@@ -17,6 +17,7 @@ const commentValidations = [
     .withMessage("Comment can not be empty."),
 ];
 
+//-------------------------------------------------------------------CREATE COMMENT------------------------------------------------------------------//
 
 commentsRouter.post("/", asyncHandler(async (req, res, next) => {
   // console.log("start comments submit");
@@ -34,6 +35,9 @@ commentsRouter.post("/", asyncHandler(async (req, res, next) => {
   res.json({ username, comment })
 }))
 
+//-------------------------------------------------------------------DELETE COMMENT------------------------------------------------------------------//
+
+
 commentsRouter.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
   const commentId = parseInt(req.params.id, 10);
@@ -45,49 +49,19 @@ commentsRouter.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   res.json("Comment Deleted.")
 }))
 
+//-------------------------------------------------------------------EDIT COMMENT------------------------------------------------------------------//
+
+commentsRouter.patch('/:id(\\d+)', asyncHandler(async (req, res, next) => {
+
+  const commentId = parseInt(req.params.id, 10);
+
+  const comment = await Comment.findByPk(commentId);
+
+  await comment.update()
+
+  res.json("Comment Edited Successfully .")
+}))
+
+
 
 module.exports = commentsRouter
-
-// //--------------------------------------------------------------------CUSTOM ERRORS-------------------------------------------------------------------------------//
-// const checkPermissions = (story, currentUser) => {
-//     if (story.userId !== currentUser.id) {
-//         const err = new Error('Illegal operation.');
-//         err.status = 403; // Forbidden
-//         throw err;
-//     }
-// };
-
-// const commentNotFoundError = (commentId) => {
-//     const err = new Error("The requested comment could not be found with the given ID.");
-//     err.title = 'Comment not found.'
-//     err.status = 404;
-//     // next(err);
-//     return err
-// }
-
-// //--------------------------------------------------------------------GET ROUTES-------------------------------------------------------------------------------//
-
-// //~~~~~GET ALL COMMENTS~~~~~//
-// router.get("/", asyncHandler(async (req, res) => {
-//       const comments = await Comment.findAll();
-//       res.json({ comments });
-//     })
-//   );
-
-// //~~~~~GET SPECIFIC COMMENT~~~~~//
-//   router.get("/:id(\\d+)", asyncHandler(async (req, res, next) => {
-//       const taskId = parseInt(req.params.id, 10);
-//       const task = await Task.findByPk(taskId);
-//       res.json({ task });
-//     })
-//   );
-
-// //--------------------------------------------------------------------POST ROUTES-------------------------------------------------------------------------------//
-
-// //~~~~~CREATE A COMMENT~~~~~//
-//   router.post("/", commentValidations, handleValidationErrors, asyncHandler(async (req, res) => {
-//       const { storyId, userId, content } = req.body;
-//       const comment = await Comment.create({ storyId, userId, content });
-//       res.status(201).json({ comment });
-//     })
-//   );

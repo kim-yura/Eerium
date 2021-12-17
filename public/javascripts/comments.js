@@ -44,18 +44,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
       const newComment = await commentJson.json();
       const { username, comment } = newComment;
       const commentUl = document.querySelector(".commentContainer");
-      // console.log(user)
+
       const commentDiv = document.createElement("div");
+
       commentDiv.innerHTML = `
                   <p>${username}<p>
                   <li>${comment.content}</li>
-                  <button class='editComment'>Edit</button>
+                  <button class='editComment' id=comment-${comment.id}>Edit</button>
                   <button class='deleteComment' id=comment-${comment.id}>Delete</button>
                   `;
 
-      // commentUl.appendChild(commentDiv);
       commentUl.insertBefore(commentDiv, commentUl.firstChild)
+
       document.querySelector('.deleteComment').addEventListener('click', clickHandlerDelete)
+      document.querySelector('.editComment').addEventListener('click',) // TO DO
+
     } catch (error) { }
     commentTextarea.value = "";
   })
@@ -88,4 +91,38 @@ document.addEventListener("DOMContentLoaded", (event) => {
       }
     })
   })
+
+  //------------------------------EDIT COMMENT-------------------------------------//
+
+
+  const editCommentButton = document.querySelectorAll(".editComment");
+
+  editCommentButton.forEach(button => {
+    button.addEventListener("click", async (event) => {
+
+      const commentTextarea = document.querySelector(".commentContent");
+      const storyId = commentTextarea.getAttribute("storyId");
+      const content = commentTextarea.value;
+      const body = { content, storyId };
+
+      const commentId = event.target.id.split("-")[1]
+
+      try {
+        const res = await fetch(`/comments/${commentId}`, {
+          method: "PATCH",
+          body: JSON.stringify(body),
+          headers: { "Content-Type": "application/json" },
+        })
+
+        if (res) {
+          event.target.parentNode.update()
+        }
+      } catch (error) {
+
+        console.log(error);
+
+      }
+    })
+  })
+
 })
