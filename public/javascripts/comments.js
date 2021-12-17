@@ -87,11 +87,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
       const commentDiv = document.createElement("div");
 
       commentDiv.innerHTML = `
-                  <p>${username}<p>
+                  <p class="comment-author">${username}<p>
                   <li>${comment.content}</li>
-                  <button class='editComment' id=comment-${comment.id}>Edit</button>
-                  <button class='deleteComment' id=comment-${comment.id}>Delete</button>
+                  <button class='editComment' id=comment-${comment.id}>Edit Comment</button>
+                  <button class='deleteComment' id=comment-${comment.id}>Delete Comment</button>
                   `;
+      commentDiv.classList.add("comment");
 
       commentUl.insertBefore(commentDiv, commentUl.firstChild)
 

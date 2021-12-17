@@ -3,6 +3,7 @@ extends layout
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/footer.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 
@@ -75,3 +76,41 @@ block content
                   a(href='') Category 8
                 li
                   a(href='') Category 9
+
+  .divider
+  div(class="footer")
+    div(class="person")
+      img(class="person-profile" src="./profile-karandeep.jpg")
+      p(class="person-name") Karandeep Singh
+      div(class="icons")
+        a(href="" target="_blank")
+          img(src="linkedin.png" class="icon")
+        a(href="https://github.com/jinnie96" target="_blank")
+          img(src="github.png" class="icon")
+
+    div(class="person")
+      img(class="person-profile" src="./profile-xander.jpg")
+      p(class="person-name") Xander Gangemi
+      div(class="icons")
+        a(href="" target="_blank")
+          img(src="linkedin.png" class="icon")
+        a(href="https://github.com/gitxandalf" target="_blank")
+          img(src="github.png" class="icon")
+
+    div(class="person")
+      img(class="person-profile" src="./profile-yura.jpg")
+      p(class="person-name") Yu Ra Kim
+      div(class="icons")
+        a(href="https://www.linkedin.com/in/yura-kim/" target="_blank")
+          img(src="linkedin.png" class="icon")
+        a(href="https://github.com/kim-yura" target="_blank")
+          img(src="github.png" class="icon")
+
+    div(class="person")
+      img(class="person-profile" src="./profile-zhen.jpg")
+      p(class="person-name") Zhen Yu
+      div(class="icons")
+        a(href="" target="_blank")
+          img(src="linkedin.png" class="icon")
+        a(href="https://github.com/zyusnow" target="_blank")
+          img(src="github.png" class="icon")
