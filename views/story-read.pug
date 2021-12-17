@@ -1,22 +1,19 @@
 extends layout.pug
-
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
   link(rel="stylesheet" href="/stylesheets/story.css")
-
 include utils.pug
-
 block content
   div(class="story-body")
     append head
       script(src="/javascripts/comments.js" type="module" defer)
+      script(src="/javascripts/likes.js" type="module" defer)
     +validationErrorSummary(errors)
     h1(class="story-title")= story.title
     div(class="story-content")
       p(class="story-content")= story.content
       p(class="story-metadata")= story.createdAt
-
     div(class="edit-story-div")
       if authenticated
         button(class="storyLike", storyId= story.id) Like
@@ -25,16 +22,12 @@ block content
             button(class="edit-buttons") Edit Story
           a(href=`/stories/${story.id}/delete`)
             button(class="edit-buttons") Delete Story
-
     .divider
-
     div(class="comments")
-
       div(class="write-comment-div")
         if authenticated
         textarea.commentContent(class="comment-box" name="comment", storyId=story.id, cols="100", rows="5", placeholder="Share your thoughts...", required = true)
       button.commentSubmit(class="comment-submit" type="submit") Submit
-
       .divider
       h2(class="comments-header") Comments
       ul.commentContainer
@@ -46,4 +39,8 @@ block content
               if (locals.user.id === comment.userId)
                 button(class=`editComment` id=`comment-${comment.id}`) Edit Comment
                 button(class=`deleteComment` id=`comment-${comment.id}`) Delete Comment
-                button(class="commentLike", commentId= comment.id) Like
+                p(id=`counter-${comment.id}`)= comment.Likes.length
+                if (comment.Likes.filter(like => like.userId === locals.user.id).length)
+                  button(class=`commentLike`, id= comment.id) Liked
+                else
+                  button(class=`commentLike`, id= comment.id) Like

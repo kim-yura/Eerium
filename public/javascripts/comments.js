@@ -139,9 +139,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   editCommentButton.forEach(button => {
     button.addEventListener("click", async (event) => {
-      console.log('hi')
+
       const commentTextarea = document.querySelector(".commentContent");
-      // console.log(event.target.parentNode.childNodes[1].textContent)
+
       const submit = document.querySelector(".commentSubmit")
       commentTextarea.innerText = event.target.parentNode.childNodes[1].textContent
       const updateBtn = document.createElement("button")
