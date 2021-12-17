@@ -8,7 +8,7 @@
     box-sizing: border-box;
     width: 100%;
     padding: 12px;
-    border: 2px solid white;
+    border: 2px solid whitesmoke;
     border-radius: 5px;
     color: whitesmoke;
     margin-bottom: 5px;
@@ -23,7 +23,7 @@
     display: flex;
     justify-content: center;
     border: 1px solid black;
-    background: white;
+    background: whitesmoke;
     padding: 10px;
     padding-left: 14px;
     padding-right: 14px;
@@ -35,7 +35,7 @@
 
 .signup-link {
     margin-top: 20px;
-    color: white;
+    color: whitesmoke;
     display: flex;
     justify-content: center;
 }

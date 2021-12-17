@@ -1,15 +1,22 @@
-extends layout.pug
+extends layout
+
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/stories.css")
+  //- add page specific js
+  script(src="/javascripts/index.js" type="module" defer)
 
 include utils.pug
 
 block content
   //- +validationErrorSummary(errors)
-  form(action="/stories/create", method="post")
+  form(action="/stories/create", method="post" class="post-story")
 
     input(type="hidden", name="_csrf", value=csrfToken)
       //- STORY TITLE
-    input(type="text", placeholder="Title", name="title", required = true)
+    input(type="text", placeholder="Title", name="title", required = true id="story-title")
       //- STORY CONTENT
-    textarea(name="content", placeholder="Tell your story...", required = true, cols="30", rows="10")
+    textarea(name="content", placeholder="Tell your story...", required = true, cols="30", rows="10" id="story-content")
       //- PUBLISH BUTTON
-    button(type="submit") Publish
+    button(type="submit" id="submit-story") Publish

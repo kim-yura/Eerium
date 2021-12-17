@@ -1,5 +1,5 @@
 h1 {
-    color: white;
+    color: whitesmoke;
 }
 
 /* -- TOP NAVBAR --------------------------------------------------------------------------------------------------------------------------- */
@@ -52,9 +52,9 @@ h1 {
 }
 
 .navbar-button {
-    color: white;
+    color: whitesmoke;
     border: 1px solid black;
-    background: white;
+    background: whitesmoke;
     padding: 10px;
     padding-left: 14px;
     padding-right: 14px;
@@ -63,7 +63,7 @@ h1 {
 }
 
 .navbar-user-welcome {
-    color: white;
+    color: whitesmoke;
     background: #272640;
     margin-right: 10px;
 }
@@ -100,7 +100,7 @@ h1 {
     margin-right: 50px;
     font-weight: lighter;
     font-size: 36;
-    color: white;
+    color: whitesmoke;
 }
 
 #splash-start-writing-button {
@@ -116,7 +116,7 @@ h1 {
     padding-top: 8px;
     padding-bottom: 8px;
     border-radius: 20px;
-    background-color: white;
+    background-color: whitesmoke;
     text-decoration: none;
 }
 
@@ -152,7 +152,7 @@ h1 {
     grid-column: 1;
     background-color: #3a3b3c;
     border-radius: 10px;
-    color: white;
+    color: whitesmoke;
     margin-top: 10px;
     padding: 15px;
 }
@@ -175,7 +175,7 @@ h1 {
 
 header {
     background-color: #272640;
-    color:white;
+    color:whitesmoke;
     display:grid;
     /* justify-content: center; */
     align-items: center;
@@ -188,7 +188,7 @@ header {
 .feed-story {
     background-color: #3a3b3c;
     border-radius: 10px;
-    color: white;
+    color: whitesmoke;
     margin-top: 10px;
     padding: 15px;
     display: grid;
@@ -245,7 +245,7 @@ header {
     font-weight: bold;
     font-size: 16px;
     margin: 20px;
-    color: white;
+    color: whitesmoke;
     position: -webkit-sticky;
     position: sticky;
     top: 100px;
@@ -294,7 +294,7 @@ header {
 
 .alert {
     background-color: #3a3b3c;
-    color: white;
+    color: whitesmoke;
     text-decoration: none;
     list-style: none;
     font-size: 14px;
