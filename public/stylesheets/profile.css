@@ -31,16 +31,6 @@
     margin-top: -5px;
 }
 
-.profile-followers {
-    color: black;
-    border: solid 1px whitesmoke;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding: 9px;
-    background-color: whitesmoke;
-    border-radius: 100px;
-}
-
 .profile-main-container {
     grid-area: 'mainNav';
     display: grid;
