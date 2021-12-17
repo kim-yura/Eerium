@@ -19,6 +19,7 @@ block content
 
     div(class="edit-story-div")
       if authenticated
+        button(class="storyLike", storyId= story.id) Like
         if (locals.user.id === story.userId)
           a(href=`/stories/${story.id}/edit`)
             button(class="edit-buttons") Edit Story
@@ -45,3 +46,4 @@ block content
               if (locals.user.id === comment.userId)
                 button(class=`editComment` id=`comment-${comment.id}`) Edit Comment
                 button(class=`deleteComment` id=`comment-${comment.id}`) Delete Comment
+                button(class="commentLike", commentId= comment.id) Like
