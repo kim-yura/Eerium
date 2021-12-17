@@ -1,0 +1,16 @@
+.error-body {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    color: white;
+    margin-left: 10%;
+}
+
+.error-header {
+    margin-bottom: 5px;
+}
+
+.error-main {
+    font-size: 12px;
+}

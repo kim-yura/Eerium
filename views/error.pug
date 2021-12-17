@@ -3,8 +3,11 @@ extends layout
 append head
   //- add page specific styles by appending to the head
   link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/error.css")
+
 
 block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  div(class="error-body")
+    h1(class="error-header") You've encountered a site error! Spooky!
+    h2= `Error status: ${error.status}`
+    pre(class="error-main") #{error.stack}
