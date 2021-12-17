@@ -183,7 +183,7 @@ router.get('/demo', asyncHandler(async (req, res) => {
   console.log("SUCCESSFUL LOGIN");
   const email = 'dave@dave.com';
   const password = 'Password@123';
-  
+
   req.body = {
     email,
     password
