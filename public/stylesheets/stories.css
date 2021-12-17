@@ -21,6 +21,7 @@
     padding: 18px;
     border-radius: 10px;
     margin-bottom: 10px;
+    resize: none;
 }
 
 #submit-story {
@@ -34,6 +35,9 @@
     border-radius: 20px;
     width: 30%;
     align-self: center;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
 }
 
 .delete-button {
