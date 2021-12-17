@@ -430,3 +430,9 @@ header {
 .alert li {
     justify-items: center;
 }
+
+.updateBtn {
+    display: flex;
+    flex-direction: flex-end;
+    z-index: 3;
+}
