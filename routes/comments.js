@@ -4,7 +4,7 @@ const express = require('express');
 const commentsRouter = express.Router();
 const { check, validationResult } = require('express-validator');
 
-const { Comment, Story, User } = require('../db/models');
+const { sequelize, Comment, Story, User } = require('../db/models');
 
 const { asyncHandler, csrfProtection, handleValidationErrors } = require('./utils');
 const { loginUser, logoutUser, requireAuth, restoreUser } = require('../auth');
@@ -52,13 +52,11 @@ commentsRouter.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 //-------------------------------------------------------------------EDIT COMMENT------------------------------------------------------------------//
 
 commentsRouter.patch('/:id(\\d+)', asyncHandler(async (req, res, next) => {
-
+  console.log("REQ", req.body)
   const commentId = parseInt(req.params.id, 10);
-
   const comment = await Comment.findByPk(commentId);
-
-  await comment.update()
-
+  comment.content = req.body.content
+  await comment.save()
   res.json("Comment Edited Successfully .")
 }))
 

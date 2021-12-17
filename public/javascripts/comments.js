@@ -27,6 +27,45 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
   }
 
+  const clickHandlerEdit = async (event) => {
+    const commentTextarea = document.querySelector(".commentContent");
+    // console.log(event.target.parentNode.childNodes[1].textContent)
+    const submit = document.querySelector(".commentSubmit")
+    commentTextarea.innerText = event.target.parentNode.childNodes[1].textContent
+    const updateBtn = document.createElement("button")
+    updateBtn.innerText = "Update"
+    updateBtn.className = "updateBtn"
+    if (!document.querySelector(".updateBtn")) {
+      submit.after(updateBtn)
+    }
+    const commentId = event.target.id.split("-")[3]
+    updateBtn.addEventListener("click", async (e) => {
+      const storyId = commentTextarea.getAttribute("storyId");
+      const content = commentTextarea.value;
+      const body = { content, storyId };
+      commentTextarea.value = ""
+      event.target.parentNode.childNodes[1].innerText = content
+      updateBtn.remove()
+      try {
+        const res = await fetch(`/comments/${commentId}`, {
+          method: "PATCH",
+          body: JSON.stringify(body),
+          headers: { "Content-Type": "application/json" },
+        })
+
+        if (res) {
+          event.target.parentNode.childNodes[3].innerText = content
+          // event.target.parentNode.update()
+        }
+      } catch (error) {
+
+        console.log(error);
+
+      }
+    })
+
+  }
+
   addCommentButton.addEventListener("click", async (event) => {
 
     const commentTextarea = document.querySelector(".commentContent");
@@ -57,7 +96,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       commentUl.insertBefore(commentDiv, commentUl.firstChild)
 
       document.querySelector('.deleteComment').addEventListener('click', clickHandlerDelete)
-      document.querySelector('.editComment').addEventListener('click',) // TO DO
+      document.querySelector('.editComment').addEventListener('click', clickHandlerEdit) // TO DO
 
     } catch (error) { }
     commentTextarea.value = "";
@@ -99,29 +138,45 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   editCommentButton.forEach(button => {
     button.addEventListener("click", async (event) => {
-
+      console.log('hi')
       const commentTextarea = document.querySelector(".commentContent");
-      const storyId = commentTextarea.getAttribute("storyId");
-      const content = commentTextarea.value;
-      const body = { content, storyId };
-
-      const commentId = event.target.id.split("-")[1]
-
-      try {
-        const res = await fetch(`/comments/${commentId}`, {
-          method: "PATCH",
-          body: JSON.stringify(body),
-          headers: { "Content-Type": "application/json" },
-        })
-
-        if (res) {
-          event.target.parentNode.update()
-        }
-      } catch (error) {
-
-        console.log(error);
-
+      // console.log(event.target.parentNode.childNodes[1].textContent)
+      const submit = document.querySelector(".commentSubmit")
+      commentTextarea.innerText = event.target.parentNode.childNodes[1].textContent
+      const updateBtn = document.createElement("button")
+      updateBtn.innerText = "Update"
+      updateBtn.className = "updateBtn"
+      if (!document.querySelector(".updateBtn")) {
+        submit.after(updateBtn)
+        submit.remove()
       }
+      const commentId = event.target.id.split("-")[1]
+      updateBtn.addEventListener("click", async (e) => {
+        const storyId = commentTextarea.getAttribute("storyId");
+        const content = commentTextarea.value;
+        const body = { content, storyId };
+        // commentTextarea.innerText=""
+        commentTextarea.value = ""
+        event.target.parentNode.childNodes[1].innerText = content
+        updateBtn.after(submit)
+        updateBtn.remove()
+        try {
+          const res = await fetch(`/comments/${commentId}`, {
+            method: "PATCH",
+            body: JSON.stringify(body),
+            headers: { "Content-Type": "application/json" },
+          })
+
+          if (res) {
+            event.target.parentNode.childNodes[1].innerText = content
+            // event.target.parentNode.update()
+          }
+        } catch (error) {
+
+          console.log(error);
+
+        }
+      })
     })
   })
 
