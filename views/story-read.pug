@@ -1,31 +1,47 @@
 extends layout.pug
 
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/story.css")
+
 include utils.pug
 
 block content
-  append head
-    script(src="/javascripts/comments.js" type="module" defer)
-  +validationErrorSummary(errors)
-  h1= story.title
-  p= story.content
-  if authenticated
-    if (locals.user.id === story.userId)
-      a(href=`/stories/${story.id}/edit`)
-        button Edit
-      a(href=`/stories/${story.id}/delete`)
-        button Delete
+  div(class="story-body")
+    append head
+      script(src="/javascripts/comments.js" type="module" defer)
+    +validationErrorSummary(errors)
+    h1(class="story-title")= story.title
+    div(class="story-content")
+      p(class="story-content")= story.content
+      p(class="story-metadata")= story.createdAt
 
-  if authenticated
-  textarea.commentContent(name="comment", storyId=story.id, cols="30", rows="10", required = true)
-  button.commentSubmit(type="submit") Submit
+    div(class="edit-story-div")
+      if authenticated
+        if (locals.user.id === story.userId)
+          a(href=`/stories/${story.id}/edit`)
+            button(class="edit-buttons") Edit Story
+          a(href=`/stories/${story.id}/delete`)
+            button(class="edit-buttons") Delete Story
 
-  h2 Comments
-  ul.commentContainer
-    each comment in comments
-      div
-        p= comment.User.username
-        li= comment.content
+    .divider
+
+    div(class="comments")
+
+      div(class="write-comment-div")
         if authenticated
-          if (locals.user.id === comment.userId)
-            button(class=`editComment` id=`comment-${comment.id}`) Edit
-            button(class=`deleteComment` id=`comment-${comment.id}`) Delete
+        textarea.commentContent(class="comment-box" name="comment", storyId=story.id, cols="100", rows="5", placeholder="Share your thoughts...", required = true)
+      button.commentSubmit(class="comment-submit" type="submit") Submit
+
+      .divider
+      h2(class="comments-header") Comments
+      ul.commentContainer
+        each comment in comments
+          div(class="comment")
+            p(class="comment-author")= comment.User.username
+            li= comment.content
+            if authenticated
+              if (locals.user.id === comment.userId)
+                button(class=`editComment` id=`comment-${comment.id}`) Edit Comment
+                button(class=`deleteComment` id=`comment-${comment.id}`) Delete Comment
