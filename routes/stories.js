@@ -47,7 +47,7 @@ router.get('/:id(\\d+)', csrfProtection, asyncHandler(async (req, res, next) => 
     const storyId = parseInt(req.params.id, 10);
     const story = await Story.findOne({
         where: { id: storyId },
-        include: User
+        include: [User, Like]
     })
     const comments = await Comment.findAll({
         where: { storyId },
@@ -170,4 +170,31 @@ router.put("/likes", asyncHandler(async (req, res) => {
         console.log(e)
     }
 }))
+
+//~~~~~LIKE STORY~~~~~//
+
+router.put("/storyLikes", asyncHandler(async (req, res) => {
+    try {
+        const userId = res.locals.user.id;
+        const { storyId } = req.body;
+        const like = await Like.findOne({
+            where: { userId, storyId }
+        })
+        if (!like) {
+            await Like.create({
+                userId,
+                storyId
+            })
+            res.json({ message: "Liked!" })
+        } else {
+            await like.destroy()
+            res.json({ message: "Unliked!" })
+        }
+    } catch (e) {
+        console.log(e)
+    }
+}))
+
+
+
 module.exports = router;
