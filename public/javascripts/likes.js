@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   storyLikes.addEventListener("click", async (event) => {
 
     const storyId = event.target.id;
-
+    // console.log(storyId);
     const body = { storyId };
     const res = await fetch("/stories/storyLikes", {
       method: "PUT",
@@ -55,16 +55,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const data = await res.json();
     if (data.message === "Liked!") {
       event.target.innerText = "Liked";
-      const value = parseInt(document.getElementById(`counter-${comment.id}`).value, 10);
-      console.log(value);
+      let value = parseInt(document.getElementById(`counter-${storyId}`).innerText, 10);
+      console.log("valplus", value);
       value++;
-      console.log(value);
-      document.getElementById(`counter-${comment.id}`).innerText = value
+      console.log("valplus", value);
+      document.getElementById(`counter-${storyId}`).innerText = value
     } else {
       event.target.innerText = "Like";
-      const value = parseInt(document.getElementById(`counter-${comment.id}`).value, 10);
+      let value = parseInt(document.getElementById(`counter-${storyId}`).innerText, 10);
+      console.log("valminus", value);
       value--;
-      document.getElementById(`counter-${comment.id}`).innerText = value
-    }
+      console.log("valminus", value);
+      document.getElementById(`counter-${storyId}`).innerText = value
+
   })
 })
