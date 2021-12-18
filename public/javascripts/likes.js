@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       console.log("Today is Friday", data);
       if (data.message === "Liked!") {
         event.target.innerText = "Liked"
+
       } else {
         event.target.innerText = "Like"
       }
@@ -43,7 +44,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   storyLikes.addEventListener("click", async (event) => {
 
     const storyId = event.target.id;
-
+    // console.log(storyId);
     const body = { storyId };
     const res = await fetch("/stories/storyLikes", {
       method: "PUT",
@@ -52,11 +53,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
     const data = await res.json();
-    // console.log("Today is Friday", data);
     if (data.message === "Liked!") {
-      event.target.innerText = "Liked"
+      event.target.innerText = "Liked";
+      let value = parseInt(document.getElementById(`counter-${storyId}`).innerText, 10);
+      console.log("valplus", value);
+      value++;
+      console.log("valplus", value);
+      document.getElementById(`counter-${storyId}`).innerText = value
     } else {
-      event.target.innerText = "Like"
-    }
+      event.target.innerText = "Like";
+      let value = parseInt(document.getElementById(`counter-${storyId}`).innerText, 10);
+      console.log("valminus", value);
+      value--;
+      console.log("valminus", value);
+      document.getElementById(`counter-${storyId}`).innerText = value
+
   })
 })
