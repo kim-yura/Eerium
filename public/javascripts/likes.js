@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       console.log("Today is Friday", data);
       if (data.message === "Liked!") {
         event.target.innerText = "Liked"
+
       } else {
         event.target.innerText = "Like"
       }
@@ -52,11 +53,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
     const data = await res.json();
-    // console.log("Today is Friday", data);
     if (data.message === "Liked!") {
-      event.target.innerText = "Liked"
+      event.target.innerText = "Liked";
+      const value = parseInt(document.getElementById(`counter-${comment.id}`).value, 10);
+      console.log(value);
+      value++;
+      console.log(value);
+      document.getElementById(`counter-${comment.id}`).innerText = value
     } else {
-      event.target.innerText = "Like"
+      event.target.innerText = "Like";
+      const value = parseInt(document.getElementById(`counter-${comment.id}`).value, 10);
+      value--;
+      document.getElementById(`counter-${comment.id}`).innerText = value
     }
   })
 })
