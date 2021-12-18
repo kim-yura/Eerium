@@ -16,7 +16,12 @@ block content
       p(class="story-metadata")= story.createdAt
     div(class="edit-story-div")
       if authenticated
-        button(class="storyLike", storyId= story.id) Like
+        //- button(class="storyLike", storyId= story.id) Like
+        if (story.Likes.filter(like => like.userId === locals.user.id).length)
+          button(class=`storyLike`, id= story.id) Liked
+        else
+          button(class=`storyLike`, id= story.id) Like
+        p(id=`counter-${story.id}`)= story.Likes.length
         if (locals.user.id === story.userId)
           a(href=`/stories/${story.id}/edit`)
             button(class="edit-buttons") Edit Story
@@ -36,11 +41,11 @@ block content
             p(class="comment-author")= comment.User.username
             li= comment.content
             if authenticated
+              p(id=`counter-${comment.id}`)= comment.Likes.length
+              if (comment.Likes.filter(like => like.userId === locals.user.id).length)
+                button(class=`commentLike`, id= comment.id) Liked
+              else
+                button(class=`commentLike`, id= comment.id) Like
               if (locals.user.id === comment.userId)
                 button(class=`editComment` id=`comment-${comment.id}`) Edit Comment
                 button(class=`deleteComment` id=`comment-${comment.id}`) Delete Comment
-                p(id=`counter-${comment.id}`)= comment.Likes.length
-                if (comment.Likes.filter(like => like.userId === locals.user.id).length)
-                  button(class=`commentLike`, id= comment.id) Liked
-                else
-                  button(class=`commentLike`, id= comment.id) Like
