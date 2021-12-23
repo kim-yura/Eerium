@@ -12,41 +12,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
       else
           update inner content of e.target text to say the OTHER message
   */
-  const commentLikes = document.querySelectorAll(`.commentLike`);
-  commentLikes.forEach(button => {
-    button.addEventListener("click", async (event) => {
-      const commentId = event.target.id;
-      // const storyId = await Comment.findOne({
-      //     include: Story,
-      //     where: {storyId}
-      // })
-      // console.log(storyId);
-      console.log(event.target.id);
-      const body = { commentId };
-      const res = await fetch("/stories/likes", {
-        method: "PUT",
-        body: JSON.stringify(body),
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await res.json();
-      console.log("Today is Friday", data);
-      if (data.message === "Liked!") {
-        event.target.innerText = "Liked"
-        let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
-        console.log("valplus", value);
-        value++;
-        console.log("valplus", value);
-        document.getElementById(`counter-${commentId}`).innerText = value;
-      } else {
-        event.target.innerText = "Like";
-        let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
-        console.log("valminus", value);
-        value--;
-        console.log("valminus", value);
-        document.getElementById(`counter-${commentId}`).innerText = value
-      }
-    })
-  })
 
   const storyLikes = document.querySelector(`.storyLike`);
 
