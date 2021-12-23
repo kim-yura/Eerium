@@ -32,9 +32,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
       console.log("Today is Friday", data);
       if (data.message === "Liked!") {
         event.target.innerText = "Liked"
-
+        let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
+        console.log("valplus", value);
+        value++;
+        console.log("valplus", value);
+        document.getElementById(`counter-${commentId}`).innerText = value;
       } else {
-        event.target.innerText = "Like"
+        event.target.innerText = "Like";
+        let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
+        console.log("valminus", value);
+        value--;
+        console.log("valminus", value);
+        document.getElementById(`counter-${commentId}`).innerText = value
       }
     })
   })
@@ -67,6 +76,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
       value--;
       console.log("valminus", value);
       document.getElementById(`counter-${storyId}`).innerText = value
-
+    }
   })
 })

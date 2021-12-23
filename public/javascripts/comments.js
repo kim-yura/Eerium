@@ -89,6 +89,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       commentDiv.innerHTML = `
                   <p class="comment-author">${username}<p>
                   <li>${comment.content}</li>
+                  
                   <button class='editComment' id=comment-${comment.id}>Edit Comment</button>
                   <button class='deleteComment' id=comment-${comment.id}>Delete Comment</button>
                   `;
