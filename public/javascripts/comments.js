@@ -4,6 +4,34 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   const addCommentButton = document.querySelector(".commentSubmit");
 
+  const clickHandlerLike = async (event) => {
+        const commentId = event.target.id;
+        // console.log(event.target.id);
+        const body = { commentId };
+        const res = await fetch("/stories/likes", {
+          method: "PUT",
+          body: JSON.stringify(body),
+          headers: { "Content-Type": "application/json" },
+        });
+        const data = await res.json();
+        // console.log("Today is Friday", data);
+        if (data.message === "Liked!") {
+          event.target.innerText = "Liked"
+          let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
+          console.log("valplus", value);
+          value++;
+          console.log("valplus", value);
+          document.getElementById(`counter-${commentId}`).innerText = value;
+        } else {
+          event.target.innerText = "Like";
+          let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
+          console.log("valminus", value);
+          value--;
+          console.log("valminus", value);
+          document.getElementById(`counter-${commentId}`).innerText = value
+        }
+  }
+
   const clickHandlerDelete = async (event) => {
 
     const commentId = event.target.id.split("-")[1]
@@ -89,14 +117,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
       commentDiv.innerHTML = `
                   <p class="comment-author">${username}<p>
                   <li>${comment.content}</li>
-                  
+                  <p id=counter-${comment.id}>0<p>
+                  <button class='commentLike' id=${comment.id}>Like</button>
                   <button class='editComment' id=comment-${comment.id}>Edit Comment</button>
                   <button class='deleteComment' id=comment-${comment.id}>Delete Comment</button>
                   `;
       commentDiv.classList.add("comment");
 
       commentUl.insertBefore(commentDiv, commentUl.firstChild)
-
+      document.querySelector('.commentLike').addEventListener('click', clickHandlerLike)
       document.querySelector('.deleteComment').addEventListener('click', clickHandlerDelete)
       document.querySelector('.editComment').addEventListener('click', clickHandlerEdit) // TO DO
 
@@ -105,6 +134,42 @@ document.addEventListener("DOMContentLoaded", (event) => {
   })
 
   //------------------------------DELETE COMMENT-------------------------------------//
+
+  const commentLikes = document.querySelectorAll(`.commentLike`);
+  commentLikes.forEach(button => {
+    button.addEventListener("click", async (event) => {
+      const commentId = event.target.id;
+      // const storyId = await Comment.findOne({
+      //     include: Story,
+      //     where: {storyId}
+      // })
+      // console.log(storyId);
+      console.log(event.target.id);
+      const body = { commentId };
+      const res = await fetch("/stories/likes", {
+        method: "PUT",
+        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+      console.log("Today is Friday", data);
+      if (data.message === "Liked!") {
+        event.target.innerText = "Liked"
+        let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
+        console.log("valplus", value);
+        value++;
+        console.log("valplus", value);
+        document.getElementById(`counter-${commentId}`).innerText = value;
+      } else {
+        event.target.innerText = "Like";
+        let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
+        console.log("valminus", value);
+        value--;
+        console.log("valminus", value);
+        document.getElementById(`counter-${commentId}`).innerText = value
+      }
+    })
+  })
 
   const deleteCommentButton = document.querySelectorAll(`.deleteComment`);
 
