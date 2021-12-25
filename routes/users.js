@@ -5,7 +5,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 
 const db = require('../db/models');
-
+const { Story, User, Comment, Like, Follow } = db;
 const { csrfProtection, asyncHandler } = require('./utils');
 const { check, validationResult } = require('express-validator');
 const { loginUser, logoutUser, restoreUser } = require('../auth');
@@ -20,7 +20,7 @@ const userValidators = [
     .isLength({ min: 2, max: 50 })
     .withMessage('Your username must be between 2 and 50 characters.')
     .custom((value) => {
-      return db.User.findOne({ where: { username: value } })
+      return User.findOne({ where: { username: value } })
         .then((user) => {
           if (user) {
             return Promise.reject('This username is unavailable.');
@@ -35,7 +35,7 @@ const userValidators = [
     .isEmail()
     .withMessage('Please provide a valid email address.')
     .custom((value) => {
-      return db.User.findOne({ where: { email: value } })
+      return User.findOne({ where: { email: value } })
         .then((user) => {
           if (user) {
             return Promise.reject('This email address is already registered.');
@@ -66,7 +66,7 @@ const userValidators = [
 
 /* GET users listing. */
 router.get('/signup', csrfProtection, (req, res) => {
-  const user = db.User.build();
+  const user = User.build();
   res.render('user-signup', {
     title: 'User Sign Up',
     user,
@@ -81,7 +81,7 @@ router.post('/signup', csrfProtection, userValidators, asyncHandler(async (req, 
     email
   } = req.body;
 
-  const user = db.User.build({
+  const user = User.build({
     username,
     password,
     email
@@ -138,7 +138,7 @@ router.post('/login', csrfProtection, loginValidators, asyncHandler(async (req, 
   const validatorErrors = validationResult(req);
 
   if (validatorErrors.isEmpty()) {
-    const user = await db.User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
 
     if (user !== null) {
       // console.log(user);
@@ -193,7 +193,7 @@ router.get('/demo', asyncHandler(async (req, res) => {
   const validatorErrors = validationResult(req);
 
   if (validatorErrors.isEmpty()) {
-    const user = await db.User.findOne({ where: { email } });
+    const user = await User.findOne({ where: { email } });
 
     if (user !== null) {
       // console.log(user);
@@ -218,8 +218,14 @@ router.get('/demo', asyncHandler(async (req, res) => {
 router.get('/:userId', asyncHandler(async (req, res, next) => {
   const userId = (req.params.userId);
   // console.log("USER ID", userId)
-  const user = await db.User.findByPk(userId, {
-    include: [db.Story, db.Comment]
+  const user = await User.findByPk(userId, {
+    include: [Story, Comment, {
+      model: User,
+      as: 'followers'
+  }, {
+    model: User,
+    as: 'followings'
+  }]
   });
   // console.log("RES LOCALS USER ID", res.locals.user.id)
   const userStories = user.Stories;
@@ -229,7 +235,7 @@ router.get('/:userId', asyncHandler(async (req, res, next) => {
   let sessionUsername;
   if (res.locals.user) {
     sessionUserId = res.locals.user.id;
-    sessionUser = await db.User.findByPk(sessionUserId);
+    sessionUser = await User.findByPk(sessionUserId);
     sessionUsername = sessionUser.username;
   };
   res.render('user-profile', { title: `${user.username}'s Profile Page`, user, userStories, sessionUser, sessionUsername });

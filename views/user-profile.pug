@@ -6,6 +6,7 @@ append head
   link(rel="stylesheet" href="/stylesheets/profile.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
+  script(src="/javascripts/follows.js" type="module" defer)
 
 block content
   div(class='profile-body')
@@ -14,9 +15,16 @@ block content
       p(class='profile-user')=user.username
       .divider-profile
       p(class='') About
-      p(class='nav-about-text') Just a regular guy named Dave.
-      p(class='profile-followers') Followers
-
+      p(class='nav-about-text', t=user.followers) Just a regular guy named Dave.
+      if authenticated
+        if (sessionUser.id !== user.id)
+          //- button(class='profile-follow', id=user.id) Follow
+          if (user.followers.filter(follow => follow.Follow.followerId === sessionUser.id).length)
+            button(class=`profile-follow`, id= user.id) Following
+          else
+            button(class=`profile-follow`, id=user.id, t=user.followers) Follow
+      a(id=`counter-${user.id}`, href=`/users/${user.id}/followers`)=`${user.followers.length} Followers`
+      a(href=`/users/${user.id}/following`)=`${user.followings.length} Followings`
     div(class='profile-main-container')
       each story in userStories
         div(class='user-stories')
