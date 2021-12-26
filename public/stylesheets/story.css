@@ -34,6 +34,22 @@
     margin-bottom: -5px;
 }
 
+.story-likes {
+    color: black;
+    border: 1px solid black;
+    background: whitesmoke;
+    padding: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-left: 10px;
+    border-radius: 20px;
+    align-self: center;
+    text-decoration: none;
+    font-size: 12px;
+    width: 100px;
+    text-align: center;
+}
+
 .edit-story-div {
     display: flex;
     margin-bottom: 15px;
@@ -110,6 +126,11 @@
     color: whitesmoke;
     text-align: right;
     width: 756px;
+}
+
+.comment-likes-counter {
+    background-color: #3a3b3c;
+    font-size: 12px;
 }
 
 .editComment {
