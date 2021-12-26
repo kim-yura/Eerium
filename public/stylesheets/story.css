@@ -133,6 +133,20 @@
     font-size: 12px;
 }
 
+.commentLike {
+    color: black;
+    border: 1px solid black;
+    background: whitesmoke;
+    padding: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-left: 10px;
+    margin-top: 12px;
+    margin-bottom: -6px;
+    border-radius: 20px;
+    font-size: 10px;
+}
+
 .editComment {
     color: black;
     border: 1px solid black;
