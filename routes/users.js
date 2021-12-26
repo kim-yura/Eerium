@@ -241,4 +241,77 @@ router.get('/:userId', asyncHandler(async (req, res, next) => {
   res.render('user-profile', { title: `${user.username}'s Profile Page`, user, userStories, sessionUser, sessionUsername });
 }))
 
+router.get('/:userId/followers', asyncHandler(async (req, res, next) => {
+  const userId = (req.params.userId);
+  const user = await User.findByPk(userId, {
+    include: [{
+      model: User,
+      as: 'followers'
+  }]
+  });
+
+  // here retrieve the each follower's info
+  let followerObj = {};
+
+  for (let u of user.followers) {
+    const id = u.Follow.followerId;
+    const followerInfo = await User.findByPk(id, {
+      include: [{
+        model: User,
+        as: 'followers'
+    }]
+    });
+    followerObj[id] = followerInfo;
+  };
+  //console.log(“testing”, followerObj);
+  let sessionUserId;
+  let sessionUser;
+  let sessionUsername;
+  if (res.locals.user) {
+    sessionUserId = res.locals.user.id;
+    sessionUser = await User.findByPk(sessionUserId);
+    sessionUsername = sessionUser.username;
+  }
+  res.render('follower', { title: `${user.username}'s Followers Page`, user, sessionUser, sessionUsername, followerObj});
+}))
+
+
+router.get('/:userId/followings', asyncHandler(async (req, res, next) => {
+  const userId = (req.params.userId);
+  const user = await User.findByPk(userId, {
+    include: [{
+      model: User,
+      as: 'followings'
+    },
+    {
+      model: User,
+      as: 'followers'
+    }]
+  });
+
+  // here retrieve the each follower's info
+  let followingObj = {};
+
+  for (let u of user.followings) {
+    const id = u.Follow.creatorId;
+    const followerInfo = await User.findByPk(id, {
+      include: [{
+        model: User,
+        as: 'followers'
+    }]
+    });
+    followingObj[id] = followerInfo;
+  };
+  //console.log(“testing”, followerObj);
+  let sessionUserId;
+  let sessionUser;
+  let sessionUsername;
+  if (res.locals.user) {
+    sessionUserId = res.locals.user.id;
+    sessionUser = await User.findByPk(sessionUserId);
+    sessionUsername = sessionUser.username;
+  }
+  res.render('following', { title: `${user.username}'s Followings Page`, user, sessionUser, sessionUsername, followingObj});
+}))
+
 module.exports = router;

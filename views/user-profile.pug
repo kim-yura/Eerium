@@ -24,7 +24,7 @@ block content
           else
             button(class=`profile-follow`, id=user.id, t=user.followers) Follow
       a(id=`counter-${user.id}`, href=`/users/${user.id}/followers`)=`${user.followers.length} Followers`
-      a(href=`/users/${user.id}/following`)=`${user.followings.length} Followings`
+      a(href=`/users/${user.id}/followings`)=`${user.followings.length} Followings`
     div(class='profile-main-container')
       each story in userStories
         div(class='user-stories')
