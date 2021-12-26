@@ -17,14 +17,13 @@ block content
       p(class="story-metadata")= story.createdAt
     div(class="edit-story-div")
       if authenticated
-
-        if (story.Likes.filter(like => like.userId === locals.user.id).length)
-          div(class="story-likes")
-            button(class=`storyLike`, id= story.id) Liked
-        else
-          div(class="story-likes")
-            button(class=`storyLike`, id= story.id) Like
-            p(id=`counter-${story.id}`)= story.Likes.length
+        div(class="storyLike")
+          if (story.Likes.filter(like => like.userId === locals.user.id).length)
+            button(class=`storyLike story-likes`, id= story.id) Liked
+            p(class="story-like-counter" id=`counter-${story.id}`)= story.Likes.length
+          else
+            button(class=`storyLike story-likes`, id= story.id) Like
+            p(class="story-like-counter" id=`counter-${story.id}`)= story.Likes.length
 
         if (locals.user.id === story.userId)
           a(href=`/stories/${story.id}/edit`)

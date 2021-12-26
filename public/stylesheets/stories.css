@@ -51,9 +51,14 @@
     border-radius: 20px;
     align-self: center;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 1px;
     width: 100px;
     text-align: center;
+}
+
+.story-like-counter {
+    text-align: right;
+    color: white
 }
 
 .delete-button {
