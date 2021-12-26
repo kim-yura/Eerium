@@ -5,6 +5,12 @@
 }
 
 .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-content {
     padding-top: 40px;
     padding-bottom: 20px;
     display: grid;
