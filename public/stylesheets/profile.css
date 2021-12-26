@@ -31,12 +31,13 @@
     margin-top: -5px;
 }
 
-.profile-followers {
+.profile-follow {
     color: black;
     border: solid 1px whitesmoke;
     padding-left: 5px;
     padding-right: 5px;
     padding: 9px;
+    margin-bottom: 10px;
     background-color: whitesmoke;
     border-radius: 100px;
 }

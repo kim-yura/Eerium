@@ -18,7 +18,7 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const storiesRouter = require('./routes/stories');
 const commentsRouter = require('./routes/comments');
-
+const followRouter = require('./routes/follows');
 //-------------------------------------------------------------------APP SETUP------------------------------------------------------------------//
 
 // view engine setup
@@ -41,7 +41,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/stories', storiesRouter);
 app.use('/comments', commentsRouter);
-
+app.use('/follows', followRouter);
 
 
 // set up session middleware
