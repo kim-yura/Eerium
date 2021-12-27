@@ -31,6 +31,7 @@
     margin-top: -5px;
 }
 
+<<<<<<< HEAD
 .profile-follow {
     color: black;
     border: solid 1px whitesmoke;
@@ -42,6 +43,8 @@
     border-radius: 100px;
 }
 
+=======
+>>>>>>> 49090050a1605041d3c4de2ade84817d589e6289
 .profile-main-container {
     grid-area: 'mainNav';
     display: grid;
