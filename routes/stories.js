@@ -143,8 +143,20 @@ router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async
     console.log("my name is ", storyId);
     checkPermissions(story, res.locals.user);
     const userId = res.locals.user.id
+
+    const comments = await Comment.findAll({
+        where: { storyId },
+        include: [User, Like],
+    })
+
+    for (let comment of comments) {
+        await comment.destroy();
+    }
+    console.log("*********", comments)
+
     await story.destroy();
     // res.redirect('/');
+
     res.redirect(`/users/${userId}`);
 }));
 //-------------------------------------------------------------------LIKE ROUTES------------------------------------------------------------------//
