@@ -318,8 +318,7 @@ header {
     justify-items: center;
 }
 
-.updateBtn {
-    display: flex;
-    flex-direction: flex-end;
-    z-index: 3;
+.commentInput {
+    background-color:#3a3b3c;
+    color:white
 }

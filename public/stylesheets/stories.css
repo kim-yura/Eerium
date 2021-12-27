@@ -61,7 +61,7 @@
     color: white
 }
 
-.delete-button {
+.delete-button, .updateBtn, .cancelBtn {
     color: black;
     border: 1px solid black;
     background: whitesmoke;
