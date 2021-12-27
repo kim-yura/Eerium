@@ -40,6 +40,27 @@
     font-size: 14px;
 }
 
+.story-likes {
+    color: black;
+    border: 1px solid black;
+    background: whitesmoke;
+    padding: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    margin-left: 10px;
+    border-radius: 20px;
+    align-self: center;
+    text-decoration: none;
+    font-size: 1px;
+    width: 100px;
+    text-align: center;
+}
+
+.story-like-counter {
+    text-align: right;
+    color: white
+}
+
 .delete-button, .updateBtn, .cancelBtn {
     color: black;
     border: 1px solid black;
