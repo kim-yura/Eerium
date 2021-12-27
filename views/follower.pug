@@ -24,8 +24,8 @@ block content
                 //- button(class=`profile-follow`, id= follow.Follow.followerId) Following
                 if (followerObj[follow.id].followers.filter(subFollow => subFollow.id === sessionUser.id).length)
                   button(class=`profile-follow`, id=follow.id) Following
-              else
-                button(class=`profile-follow`, id=follow.id) Follow
+                else
+                  button(class=`profile-follow`, id=follow.id) Follow
       else
         p=`${user.username} has no followers.`
     //- [{"id":9999,
