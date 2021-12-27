@@ -17,18 +17,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // console.log("Today is Friday", data);
         if (data.message === "Liked!") {
           event.target.innerText = "Liked"
-          let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
+          let value = Number((document.getElementById(`counter-${commentId}`).innerText).slice(7));
           console.log("valplus", value);
           value++;
           console.log("valplus", value);
-          document.getElementById(`counter-${commentId}`).innerText = value;
+          document.getElementById(`counter-${commentId}`).innerText = `Likes: ${value}`
         } else {
           event.target.innerText = "Like";
-          let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
+          let value = Number((document.getElementById(`counter-${commentId}`).innerText).slice(7));
           console.log("valminus", value);
           value--;
           console.log("valminus", value);
-          document.getElementById(`counter-${commentId}`).innerText = value
+          document.getElementById(`counter-${commentId}`).innerText = `Likes: ${value}`
         }
   }
 
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       commentDiv.innerHTML = `
                   <p class="comment-author">${username}</p>
                   <li>${comment.content}</li>
-                  <p id=counter-${comment.id}>0</p>
+                  <p class="comment-likes-counter" id=counter-${comment.id}>Likes: 0</p>
                   <button class='commentLike' id=${comment.id}>Like</button>
                   <button class='editComment' id=comment-${comment.id}>Edit Comment</button>
                   <button class='deleteComment' id=comment-${comment.id}>Delete Comment</button>
@@ -152,18 +152,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
       console.log("Today is Friday", data);
       if (data.message === "Liked!") {
         event.target.innerText = "Liked"
-        let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
+        let value = Number((document.getElementById(`counter-${commentId}`).innerText).slice(7));
         console.log("valplus", value);
         value++;
         console.log("valplus", value);
-        document.getElementById(`counter-${commentId}`).innerText = value;
+        document.getElementById(`counter-${commentId}`).innerText = `Likes: ${value}`
       } else {
         event.target.innerText = "Like";
-        let value = parseInt(document.getElementById(`counter-${commentId}`).innerText, 10);
+        let value = Number((document.getElementById(`counter-${commentId}`).innerText).slice(7));
         console.log("valminus", value);
         value--;
         console.log("valminus", value);
-        document.getElementById(`counter-${commentId}`).innerText = value
+        document.getElementById(`counter-${commentId}`).innerText = `Likes: ${value}`
       }
     })
   })
