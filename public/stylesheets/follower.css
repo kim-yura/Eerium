@@ -1,10 +1,40 @@
+.follower-main-container {
+    margin-left: 10%;
+}
+
 .profile-follow {
     color: black;
     border: solid 1px whitesmoke;
     padding-left: 5px;
     padding-right: 5px;
     padding: 9px;
-    margin-bottom: 10px;
+    margin-left: 380px;
     background-color: whitesmoke;
     border-radius: 100px;
+}
+
+.follower-name {
+    font-size: 20px;
+    color: whitesmoke
+}
+
+
+.each-follow-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: row;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    column-gap: 20px;
+    align-items: center;
+}
+
+.pug-title {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.more-text {
+    font-size: 20px;
+    color: whitesmoke
 }

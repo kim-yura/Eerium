@@ -10,21 +10,22 @@ append head
 
 block content
   div(class='follower-main-container')
-    h1=`${user.username}'s Followers`
+    h1(class='pug-title')=`${user.username}'s Followers`
     div(class='follower-container')
     if authenticated
       if user.followers.length
         each follow in user.followers
-          img(class='person-img' src='/profile-pic.png', style='width:50px;height:50px')
-          a(href=`/users/${follow.id}` class='follower-name')=follow.username
-          if (follow.id !== sessionUser.id)
-            //- button(class=`profile-follow`, id= follow.Follow.followerId) Following
-            if (followerObj[follow.id].followers.filter(subFollow => subFollow.id === sessionUser.id).length)
-              button(class=`profile-follow`, id=follow.id) Following
-            else
-              button(class=`profile-follow`, id=follow.id) Follow
+          div(class='each-follow-container')
+            img(class='person-img' src='/profile-pic.png', style='width:50px;height:50px')
+            a(href=`/users/${follow.id}` class='follower-name')=follow.username
+            if (follow.id !== sessionUser.id)
+              //- button(class=`profile-follow`, id= follow.Follow.followerId) Following
+              if (followerObj[follow.id].followers.filter(subFollow => subFollow.id === sessionUser.id).length)
+                button(class=`profile-follow`, id=follow.id) Following
+              else
+                button(class=`profile-follow`, id=follow.id) Follow
       else
-        p=`${user.username} has no followers.`
+        p(class='more-text')=`${user.username} has no followers.`
     //- [{"id":9999,
     //-   "username":"DemoDave",
     //-   "email":"dave@dave.com",
