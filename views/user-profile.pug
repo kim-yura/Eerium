@@ -5,6 +5,7 @@ append head
   link(rel="stylesheet" href="/stylesheets/index.css")
   link(rel="stylesheet" href="/stylesheets/profile.css")
   link(rel='stylesheet' href='/stylesheets/footer.css')
+  link(rel='stylesheet' href='/stylesheets/follower.css')
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
   script(src="/javascripts/follows.js" type="module" defer)
@@ -26,6 +27,7 @@ block content
             button(class=`profile-follow`, id=user.id, t=user.followers) Follow
       a(id=`counter-${user.id}`, href=`/users/${user.id}/followers`)=`${user.followers.length} Followers`
       a(href=`/users/${user.id}/followings`)=`${user.followings.length} Followings`
+
     div(class='profile-main-container')
       each story in userStories
         div(class='user-stories')
