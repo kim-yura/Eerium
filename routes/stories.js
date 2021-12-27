@@ -153,7 +153,6 @@ router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async
         // console.log("hihihi", commentId)
         const likes = await Like.findAll({
             where: { commentId} ,
-            include: [User, Story],
         })
         for (let like of likes) {
             await like.destroy()
@@ -162,7 +161,6 @@ router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async
     }
     const likes = await Like.findAll({
         where: { storyId },
-        include: [User, Story],
     })
     for (let like of likes) {
         await like.destroy();

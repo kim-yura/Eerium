@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", (event) => {
     const followBtns = document.querySelectorAll(`.profile-follow`);
     followBtns.forEach(button => {
-    //const followButton = document.querySelector(".profile-follow");
         button.addEventListener("click", async (event) => {
             const creatorId = event.target.id;
             const body = { creatorId };

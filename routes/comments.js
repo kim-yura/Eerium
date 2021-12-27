@@ -39,18 +39,14 @@ commentsRouter.post("/", commentValidations, asyncHandler(async (req, res, next)
 commentsRouter.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
 
   const commentId = parseInt(req.params.id, 10);
-
   const comment = await Comment.findByPk(commentId);
   const likes = await Like.findAll({
     where: { commentId },
-    include: [User, Comment],
   })
   for (let like of likes) {
     await like.destroy();
 }
-
   await comment.destroy()
-
   res.json("Comment Deleted.")
 }))
 
