@@ -139,21 +139,34 @@ router.get('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async 
 }));
 router.post('/:id(\\d+)/delete', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
     const storyId = parseInt(req.params.id, 10);
-    const story = await db.Story.findByPk(storyId);
-    console.log("my name is ", storyId);
+    const story = await Story.findByPk(storyId);
     checkPermissions(story, res.locals.user);
-    const userId = res.locals.user.id
-
+    const userId = res.locals.user.id;
     const comments = await Comment.findAll({
         where: { storyId },
         include: [User, Like],
     })
-
     for (let comment of comments) {
+        // console.log("*******************")
+        // console.log(comment)
+        const commentId = comment.id
+        // console.log("hihihi", commentId)
+        const likes = await Like.findAll({
+            where: { commentId} ,
+            include: [User, Story],
+        })
+        for (let like of likes) {
+            await like.destroy()
+        }
         await comment.destroy();
     }
-    console.log("*********", comments)
-
+    const likes = await Like.findAll({
+        where: { storyId },
+        include: [User, Story],
+    })
+    for (let like of likes) {
+        await like.destroy();
+    }
     await story.destroy();
     // res.redirect('/');
 

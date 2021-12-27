@@ -4,7 +4,7 @@ const express = require('express');
 const commentsRouter = express.Router();
 const { check, validationResult } = require('express-validator');
 
-const { sequelize, Comment, Story, User } = require('../db/models');
+const { sequelize, Comment, Story, User, Like } = require('../db/models');
 
 const { asyncHandler, csrfProtection, handleValidationErrors } = require('./utils');
 const { loginUser, logoutUser, requireAuth, restoreUser } = require('../auth');
@@ -41,6 +41,13 @@ commentsRouter.delete('/:id(\\d+)', asyncHandler(async (req, res, next) => {
   const commentId = parseInt(req.params.id, 10);
 
   const comment = await Comment.findByPk(commentId);
+  const likes = await Like.findAll({
+    where: { commentId },
+    include: [User, Comment],
+  })
+  for (let like of likes) {
+    await like.destroy();
+}
 
   await comment.destroy()
 
