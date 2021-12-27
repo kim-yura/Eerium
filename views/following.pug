@@ -16,14 +16,16 @@ block content
     if authenticated
       if user.followings.length
         each follow in user.followings
-          img(class='person-img' src='/profile-pic.png', style='width:50px;height:50px')
-          a(href=`/users/${follow.id}` class='follower-name')=follow.username
-          if (follow.id !== sessionUser.id)
-            //- button(class=`profile-follow`, id= follow.Follow.followerId) Following
-            if (followingObj[follow.id].followers.filter(subFollow => subFollow.id === sessionUser.id).length)
-              button(class=`profile-follow`, id=follow.id) Following
-            else
-              button(class=`profile-follow`, id=follow.id) Follow
+          div(class="user-box")
+            img(class='person-img' src='/profile-pic.png', style='width:50px;height:50px')
+            div(class="user")
+              a(class="username" href=`/users/${follow.id}` class='follower-name')=follow.username
+              if (follow.id !== sessionUser.id)
+                //- button(class=`profile-follow`, id= follow.Follow.followerId) Following
+                if (followingObj[follow.id].followers.filter(subFollow => subFollow.id === sessionUser.id).length)
+                  button(class=`profile-follow`, id=follow.id) Following
+                else
+                  button(class=`profile-follow`, id=follow.id) Follow
       else
         p=`${user.username} is not following anyone.`
     //- [{"id":9999,
