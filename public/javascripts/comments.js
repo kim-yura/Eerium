@@ -100,18 +100,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // const commentId = event.target.id.split("-")[1]
 
     try {
-      const commentJson = await fetch("/comments", {
+      const res = await fetch("/comments", {
         method: "POST",
         body: JSON.stringify(body),
         headers: { "Content-Type": "application/json" },
       });
-      const newComment = await commentJson.json();
-      const { username, comment } = newComment;
-      const commentUl = document.querySelector(".commentContainer");
-
-      const commentDiv = document.createElement("div");
-
-      commentDiv.innerHTML = `
+      const data = await res.json();
+      const { username, comment } = data;
+      const ul = document.querySelector(".commentContainer");
+      const div = document.createElement("div");
+      div.classList.add("comment");
+      div.innerHTML = `
                   <p class="comment-author">${username}</p>
                   <li>${comment.content}</li>
                   <p class="comment-likes-counter" id=counter-${comment.id}>Likes: 0</p>
@@ -119,9 +118,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                   <button class='editComment' id=comment-${comment.id}>Edit Comment</button>
                   <button class='deleteComment' id=comment-${comment.id}>Delete Comment</button>
                   `;
-      commentDiv.classList.add("comment");
 
-      commentUl.insertBefore(commentDiv, commentUl.firstChild)
+
+      ul.insertBefore(div, ul.firstChild)
       document.querySelector('.commentLike').addEventListener('click', clickHandlerLike)
       document.querySelector('.deleteComment').addEventListener('click', clickHandlerDelete)
       document.querySelector('.editComment').addEventListener('click', clickHandlerEdit) // TO DO
