@@ -63,9 +63,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const updateBtn = document.createElement("button")
     updateBtn.innerText = "Update"
     updateBtn.className = "updateBtn"
-    if (!document.querySelector(".updateBtn")) {
-      submit.after(updateBtn)
-    }
     const commentId = event.target.id.split("-")[3]
     updateBtn.addEventListener("click", async (e) => {
       const storyId = commentTextarea.getAttribute("storyId");
@@ -115,9 +112,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
       const commentDiv = document.createElement("div");
 
       commentDiv.innerHTML = `
-                  <p class="comment-author">${username}<p>
+                  <p class="comment-author">${username}</p>
                   <li>${comment.content}</li>
-                  <p id=counter-${comment.id}>0<p>
+                  <p id=counter-${comment.id}>0</p>
                   <button class='commentLike' id=${comment.id}>Like</button>
                   <button class='editComment' id=comment-${comment.id}>Edit Comment</button>
                   <button class='deleteComment' id=comment-${comment.id}>Delete Comment</button>
@@ -202,48 +199,102 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
   const editCommentButton = document.querySelectorAll(".editComment");
-
   editCommentButton.forEach(button => {
     button.addEventListener("click", async (event) => {
 
+      const updateBtn = document.createElement("button")
+      const cancelBtn = document.createElement("button")
+      updateBtn.classList.add("updateBtn")
+      updateBtn.innerText = "Update"
+      cancelBtn.classList.add("cancelBtn")
+      cancelBtn.innerText = "Cancel"
+      const currComment = event.target.parentNode.childNodes[1].textContent
+      const currCommentTag = event.target.parentNode.childNodes[1]
+      const editComment = document.createElement("input");
+      editComment.setAttribute("value", currComment);
+      const editBtn = event.target.parentNode.childNodes[4]
+      const deleteBtn = event.target.parentNode.childNodes[5]
+      const commentId = event.target.id.split("-")[1]
       const commentTextarea = document.querySelector(".commentContent");
 
-      const submit = document.querySelector(".commentSubmit")
-      commentTextarea.innerText = event.target.parentNode.childNodes[1].textContent
-      const updateBtn = document.createElement("button")
-      updateBtn.innerText = "Update"
-      updateBtn.className = "updateBtn"
-      if (!document.querySelector(".updateBtn")) {
-        submit.after(updateBtn)
-        submit.remove()
-      }
-      const commentId = event.target.id.split("-")[1]
-      updateBtn.addEventListener("click", async (e) => {
-        const storyId = commentTextarea.getAttribute("storyId");
-        const content = commentTextarea.value;
-        const body = { content, storyId };
-        // commentTextarea.innerText=""
-        commentTextarea.value = ""
-        event.target.parentNode.childNodes[1].innerText = content
-        updateBtn.after(submit)
+        editBtn.after(updateBtn)
+        editBtn.remove()
+        deleteBtn.after(cancelBtn)
+        deleteBtn.remove()
+        currCommentTag.after(editComment)
+        currCommentTag.style.display = "none"
+        editComment.classList.add("commentInput")
+      updateBtn.addEventListener("click", async (event) => {
+        updateBtn.after(editBtn)
         updateBtn.remove()
+        cancelBtn.after(deleteBtn)
+        cancelBtn.remove()
+        const updatedComment = editComment.value
+        currCommentTag.innerText = updatedComment
+        currCommentTag.style.display = "block"
+        editComment.remove()
+        const storyId = commentTextarea.getAttribute("storyId");
+        const content = updatedComment;
+        const body = { content, storyId };
         try {
           const res = await fetch(`/comments/${commentId}`, {
             method: "PATCH",
             body: JSON.stringify(body),
             headers: { "Content-Type": "application/json" },
           })
-
           if (res) {
             event.target.parentNode.childNodes[1].innerText = content
             // event.target.parentNode.update()
           }
         } catch (error) {
-
           console.log(error);
-
         }
       })
+      cancelBtn.addEventListener("click", async (event) => {
+        // editing = false;
+        updateBtn.after(editBtn)
+        updateBtn.remove()
+        cancelBtn.after(deleteBtn)
+        cancelBtn.remove()
+        currCommentTag.style.display = "block"
+        editComment.remove()
+    })
+
+      // const submit = document.querySelector(".commentSubmit")
+      // commentTextarea.innerText = event.target.parentNode.childNodes[1].textContent
+      // const updateBtn = document.createElement("button")
+      // updateBtn.innerText = "Update"
+      // updateBtn.className = "updateBtn"
+      // if (!document.querySelector(".updateBtn")) {
+      //   submit.after(updateBtn)
+      //   submit.remove()
+      // }
+      // updateBtn.addEventListener("click", async (e) => {
+      //   const storyId = commentTextarea.getAttribute("storyId");
+      //   const content = commentTextarea.value;
+      //   const body = { content, storyId };
+      //   // commentTextarea.innerText=""
+      //   commentTextarea.value = ""
+      //   event.target.parentNode.childNodes[1].innerText = content
+      //   updateBtn.after(submit)
+      //   updateBtn.remove()
+      //   try {
+      //     const res = await fetch(`/comments/${commentId}`, {
+      //       method: "PATCH",
+      //       body: JSON.stringify(body),
+      //       headers: { "Content-Type": "application/json" },
+      //     })
+
+      //     if (res) {
+      //       event.target.parentNode.childNodes[1].innerText = content
+      //       // event.target.parentNode.update()
+      //     }
+      //   } catch (error) {
+
+      //     console.log(error);
+
+      //   }
+      // })
     })
   })
 
