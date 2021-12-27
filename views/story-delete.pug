@@ -12,7 +12,7 @@ block content
     form(action=`/stories/${story.id}/delete`, method='post' id="delete-form")
       input(type="hidden", name="_csrf", value=csrfToken)
       button(type= 'submit' class="delete-button") Delete Story
-      a(href=`/users/:${userId}` class="delete-button") Cancel
+      a(href=`/users/${story.userId}` class="delete-button") Cancel
 
   div(class="footer")
     .divider
