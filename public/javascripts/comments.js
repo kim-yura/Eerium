@@ -258,42 +258,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         currCommentTag.style.display = "block"
         editComment.remove()
     })
-
-      // const submit = document.querySelector(".commentSubmit")
-      // commentTextarea.innerText = event.target.parentNode.childNodes[1].textContent
-      // const updateBtn = document.createElement("button")
-      // updateBtn.innerText = "Update"
-      // updateBtn.className = "updateBtn"
-      // if (!document.querySelector(".updateBtn")) {
-      //   submit.after(updateBtn)
-      //   submit.remove()
-      // }
-      // updateBtn.addEventListener("click", async (e) => {
-      //   const storyId = commentTextarea.getAttribute("storyId");
-      //   const content = commentTextarea.value;
-      //   const body = { content, storyId };
-      //   // commentTextarea.innerText=""
-      //   commentTextarea.value = ""
-      //   event.target.parentNode.childNodes[1].innerText = content
-      //   updateBtn.after(submit)
-      //   updateBtn.remove()
-      //   try {
-      //     const res = await fetch(`/comments/${commentId}`, {
-      //       method: "PATCH",
-      //       body: JSON.stringify(body),
-      //       headers: { "Content-Type": "application/json" },
-      //     })
-
-      //     if (res) {
-      //       event.target.parentNode.childNodes[1].innerText = content
-      //       // event.target.parentNode.update()
-      //     }
-      //   } catch (error) {
-
-      //     console.log(error);
-
-      //   }
-      // })
     })
   })
 
