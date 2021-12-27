@@ -1,0 +1,34 @@
+extends layout
+
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/follower.css")
+  //- add page specific js
+  script(src="/javascripts/index.js" type="module" defer)
+  script(src="/javascripts/follows.js" type="module" defer)
+
+block content
+  div(class='follower-main-container')
+    h1=`${user.username}'s Followings`
+    div(class='follower-container')
+    if authenticated
+      if user.followings.length
+        each follow in user.followings
+          img(class='person-img' src='/profile-pic.png', style='width:50px;height:50px')
+          a(href=`/users/${follow.id}` class='follower-name')=follow.username
+          if (follow.id !== sessionUser.id)
+            //- button(class=`profile-follow`, id= follow.Follow.followerId) Following
+            if (followingObj[follow.id].followers.filter(subFollow => subFollow.id === sessionUser.id).length)
+              button(class=`profile-follow`, id=follow.id) Following
+            else
+              button(class=`profile-follow`, id=follow.id) Follow
+      else
+        p=`${user.username} is not following anyone.`
+    //- [{"id":9999,
+    //-   "username":"DemoDave",
+    //-   "email":"dave@dave.com",
+    //-   "createdAt":"2021-12-26T00:49:47.711Z",
+    //-   "updatedAt":"2021-12-26T00:49:47.711Z",
+    //-   "Follow":
+    //-     {"creatorId":10000,"followerId":9999,"createdAt":"2021-12-26T04:54:25.040Z","updatedAt":"2021-12-26T04:54:25.040Z"}},
