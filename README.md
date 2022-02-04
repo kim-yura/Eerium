@@ -1,8 +1,9 @@
-# Express Project Skeleton
+# Express Group Project 
 
-Use this project skeleton as a starting point for structuring your app. Things to note
-* Sequelize configuration has not yet been added -- you will need to set that up yourself
-* You may find yourself wanting to use javascript -- js files can be added in `public/javascripts` and should be appended to the Pug templates as needed
-* CSS files can go in `public/stylesheets` and also will need to be added to Pug templates
+Check out our amazing group project: https://eerium.herokuapp.com/
 
-    
+Eerium, a Medium clone, is a website for users to easily and freely post their thinking on any topic and connect with millions of readers. Eerium focuses on paranormal and occult activities found in and out of everyday life.
+
+
+
+<img align="right" alt="GIF" src="https://res.cloudinary.com/dprnsux1z/image/upload/v1643934004/scrnli_2_3_2022_4-18-13_PM_cwvspd.png" />
