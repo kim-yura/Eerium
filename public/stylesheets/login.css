@@ -43,3 +43,7 @@
 .signup-link a {
     font-size: 14px;
 }
+
+.alert-danger {
+    padding-bottom: 14px;
+}
