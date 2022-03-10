@@ -14,7 +14,7 @@ block content
     h1(class="story-title")= story.title
     div(class="story-content")
       p(class="story-content")= story.content
-      p(class="story-metadata")= story.createdAt
+      p(class="story-metadata")= new Date(story.createdAt).toLocaleString()
     div(class="edit-story-div")
       if authenticated
         div(class="storyLike")

@@ -17,7 +17,7 @@ block content
     input(type="text", name="title", value= story.title required = true id="story-title")
     textarea(name="content", cols="30", rows="10" id="story-content")= story.content
     button(type='submit' class='' id="submit-story") Update Story
-    a(href='/' class='' id="submit-story") Cancel
+    a(href=`/stories/${story.id}` class='' id="submit-story") Cancel
 
     //-modified reason: if use utils.pug, textType= text, later we can work
     //-to dry story-creae.pug and story-edit if needed.

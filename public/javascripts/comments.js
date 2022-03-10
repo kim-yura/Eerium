@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       document.querySelector('.commentLike').addEventListener('click', clickHandlerLike)
       document.querySelector('.deleteComment').addEventListener('click', clickHandlerDelete)
       document.querySelector('.editComment').addEventListener('click', clickHandlerEdit) // TO DO
+      window.location.href = `/stories/${storyId}`
 
     } catch (error) { }
     commentTextarea.value = "";
