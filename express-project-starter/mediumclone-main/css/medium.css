@@ -1,0 +1,16 @@
+body {
+    font-family: 'Ephesis', cursive;
+font-family: 'Roboto Mono', monospace;
+}
+
+.bg-yellow {
+    background-color: #FFC017;
+}
+
+.border-bottom-dark {
+    border-bottom: 1px solid rgba(41, 41, 41, 1);
+}
+
+.aside-buttons > li {
+    margin-bottom: 10px;
+}
